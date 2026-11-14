@@ -24,7 +24,7 @@ It opens with a boss-encounter title screen: a laughing devil in flames, *"Level
 
 ## Always-on hostility
 - A live **"KCAL BURNED CANCELLING"** meter tracks your mouse distance, clicks and keystrokes. The final scorecard reveals you burned more calories cancelling than at the gym all year.
-- Anything that leads toward cancelling summons a laughing animated devil in flames, a red flash, a low "dun-dun" and a guilt line ("Your quads felt that."), and Coach Chad screams "COACH SAW THAT".
+- Anything that leads toward cancelling summons a cackling 3D devil in flickering flames, a red flash, a low "dun-dun" and a guilt line ("Your quads felt that."), and Coach Chad screams "COACH SAW THAT".
 - Coach Chad texts you phone-style notifications ("who's gonna spot me now").
 - Fake social proof pops up: "Dave tried to cancel 4 minutes ago. He's still here."
 - A red heartbeat vignette grows stronger the closer you get to leaving, the window tilts more on every screen, headlines glitch, the tab title begs you to stay, and pop-up ads have a close button that dodges.
@@ -34,6 +34,6 @@ It opens with a boss-encounter title screen: a laughing devil in flames, *"Level
 Fitts's law, Hick's law, Jakob's law, Nielsen's heuristics (consistency, visibility of system status, user control, error prevention, recognition over recall), Norman's signifiers, Gestalt proximity, the Doherty threshold, the peak-end rule, sunk cost, fake social proof, and WCAG contrast. New patterns invented for this: Memory Lane hostage, the Hydra Invoice, Shy Buttons, and the Future Forecast.
 
 ## Credits
-Animated emoji: [Noto Emoji Animation](https://googlefonts.github.io/noto-emoji-animation/) by Google, CC BY 4.0. Fonts: Bebas Neue and Inter (Google Fonts).
+3D emoji: [Fluent Emoji](https://github.com/microsoft/fluentui-emoji) by Microsoft, MIT license (animated with CSS). Fonts: Bebas Neue and Inter (Google Fonts).
 
 *GainTrain Fitness is fictional. No real accounts, payments, personal data or coaches.*

@@ -239,6 +239,26 @@ select,input[type=text]{border-radius:10px}
 .fattu::after{content:attr(data-t);position:absolute;inset:0;color:#29d3ff;clip-path:inset(55% 0 0 0);animation:gl2 1.2s infinite steps(1)}
 .fq{color:#d4d4d8;max-width:480px;margin:8px auto 0;font-size:15px}
 .fgo{display:block;font-size:11px;color:#3f3f46}
+/* ---- motion for the 3D emoji ---- */
+.devface{animation:cackle .5s ease-in-out infinite;transform-origin:50% 80%;filter:drop-shadow(0 0 18px rgba(255,31,61,.7))}
+@keyframes cackle{0%,100%{transform:rotate(-6deg) scale(1)}25%{transform:rotate(5deg) scale(1.06,.95) translateY(-3px)}50%{transform:rotate(-4deg) scale(.97,1.05)}75%{transform:rotate(6deg) scale(1.05,.96) translateY(-2px)}}
+.flame{transform-origin:50% 100%;animation:flick .35s ease-in-out infinite alternate;filter:drop-shadow(0 0 10px rgba(255,120,0,.8))}
+.flame.f1{animation-duration:.27s;animation-delay:-.1s}.flame.f2{animation-duration:.31s;animation-delay:-.2s}
+@keyframes flick{0%{transform:scale(1,1) skewX(-4deg)}100%{transform:scale(1.08,1.22) skewX(5deg)}}
+img.catsvg{animation:breathe 2.4s ease-in-out infinite;filter:drop-shadow(0 6px 10px rgba(0,0,0,.6))}
+@keyframes breathe{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-4px) scale(1.04)}}
+img.catsvg.shock{animation:tremble .09s infinite}
+img.catsvg.sad{animation:sobbing .6s ease-in-out infinite}
+@keyframes sobbing{0%,100%{transform:translateY(0) rotate(-2deg)}50%{transform:translateY(3px) rotate(2deg) scale(1.02,.97)}}
+.flexlogo{animation:flex 1.8s ease-in-out infinite;transform-origin:30% 80%}
+@keyframes flex{0%,70%,100%{transform:rotate(0)}80%{transform:rotate(-14deg) scale(1.12)}90%{transform:rotate(6deg)}}
+.mem img{animation:breathe 2.4s ease-in-out infinite;filter:drop-shadow(0 8px 14px rgba(0,0,0,.6))}
+.ad img{animation:cackle 1s ease-in-out infinite}
+.proof img{animation:breathe 1.6s ease-in-out infinite}
+.fpop{filter:drop-shadow(0 10px 30px rgba(255,31,61,.45))}
+.rain{animation-name:fallspin}
+@keyframes fallspin{to{transform:translateY(115vh) rotate(540deg)}}
+.walker img{filter:drop-shadow(0 4px 6px rgba(0,0,0,.6))}
 /* ---- shredder ---- */
 .shredtop{height:128px;overflow:hidden;position:relative}
 .mcard{width:230px;height:120px;margin:0 auto;border-radius:12px;padding:14px;text-align:left;color:#fff;position:relative;
@@ -350,7 +370,7 @@ select,input[type=text]{border-radius:10px}
 <div class="win" id="win">
   <div class="bar"><span class="dot" style="background:#ef4444"></span><span class="dot" style="background:#f59e0b"></span><span class="dot" style="background:#22c55e"></span>
     <span class="url" id="url"></span></div>
-  <div class="brand"><img src="https://fonts.gstatic.com/s/e/notoemoji/latest/1f4aa/512.gif" width="34" height="34" alt="">
+  <div class="brand"><img src="https://cdn.jsdelivr.net/gh/microsoft/fluentui-emoji@main/assets/Flexed%20biceps/Default/3D/flexed_biceps_3d_default.png" width="34" height="34" alt="" class="flexlogo">
     <div class="logo">GAIN<span>TRAIN</span><small>FITNESS</small></div>
     <div class="member"><b>PLATINUM MEMBER</b><span>#004812 · Visits this year: 3</span></div></div>
   <div class="content" id="c"></div>
@@ -433,11 +453,19 @@ document.addEventListener("keydown",e=>{
 // ---------- CRAZY LAYER ----------
 function shake(){ const w=$("#win"); w.classList.remove("shake"); void w.offsetWidth; w.classList.add("shake"); }
 // ----- animated SVG characters -----
-const EMO=c=>`https://fonts.gstatic.com/s/e/notoemoji/latest/${c}/512.gif`;
+// Emoji art: Microsoft Fluent Emoji 3D (MIT license), served from jsDelivr
+const FLUENT={"1f608":"Smiling face with horns/3D/smiling_face_with_horns_3d.png","1f47f":"Angry face with horns/3D/angry_face_with_horns_3d.png",
+  "1f97a":"Pleading face/3D/pleading_face_3d.png","1f62d":"Loudly crying face/3D/loudly_crying_face_3d.png","1f631":"Face screaming in fear/3D/face_screaming_in_fear_3d.png",
+  "1f979":"Face holding back tears/3D/face_holding_back_tears_3d.png","1f917":"Hugging face/3D/hugging_face_3d.png","1f525":"Fire/3D/fire_3d.png",
+  "1f4aa":"Flexed biceps/Default/3D/flexed_biceps_3d_default.png","2705":"Check mark button/3D/check_mark_button_3d.png","1fae0":"Melting face/3D/melting_face_3d.png",
+  "1f44b":"Waving hand/Default/3D/waving_hand_3d_default.png","1f911":"Money-mouth face/3D/money-mouth_face_3d.png","2764_fe0f":"Red heart/3D/red_heart_3d.png",
+  "1f921":"Clown face/3D/clown_face_3d.png","1f389":"Party popper/3D/party_popper_3d.png","1f971":"Yawning face/3D/yawning_face_3d.png","1f4fa":"Television/3D/television_3d.png",
+  "1f9a5":"Sloth/3D/sloth_3d.png","1f954":"Potato/3D/potato_3d.png","1f4a5":"Collision/3D/collision_3d.png","1f37f":"Popcorn/3D/popcorn_3d.png","1f972":"Smiling face with tear/3D/smiling_face_with_tear_3d.png"};
+const EMO=c=>{ const f=FLUENT[c]; if(!f) return `https://fonts.gstatic.com/s/e/notoemoji/latest/${c}/512.gif`;
+  const [dir,...rest]=f.split("/"); return "https://cdn.jsdelivr.net/gh/microsoft/fluentui-emoji@main/assets/"+encodeURIComponent(dir)+"/"+rest.join("/"); };
 const MOOD={watch:"1f97a",sad:"1f62d",shock:"1f631",happy:"1f979",hold:"1f97a",hug:"1f917"};
 // the devil GIFs loop devil -> plain smiley -> devil, so every reaction gets a fresh copy that starts on the devil frame
 const gifBlobs={};
-["1f608","1f47f"].forEach(c=>fetch(EMO(c)).then(r=>r.blob()).then(b=>gifBlobs[c]=b).catch(()=>{}));
 const fresh=c=>gifBlobs[c]? URL.createObjectURL(gifBlobs[c]) : EMO(c)+"?t="+Date.now();
 // preload so reactions appear instantly
 ["1f97a","1f62d","1f631","1f972","1f979","1f917","1f608","1f47f","1f525","2705","1fae0","1f44b","1f911","1f4aa","2764_fe0f","1f921"].forEach(c=>{const i=new Image();i.src=EMO(c);});
@@ -446,7 +474,7 @@ function catSVG(mood="watch",size=56){
 }
 function devilHTML(){
   const face=Math.random()<.6?"1f608":"1f47f";
-  return `<div class="devwrap"><img src="${fresh(face)}" width="130" height="130" alt=""><div class="fires">${`<img src="${EMO("1f525")}" width="46" height="46" alt="">`.repeat(3)}</div></div>`;
+  return `<div class="devwrap"><img class="devface" src="${EMO(face)}" width="130" height="130" alt=""><div class="fires">${[0,1,2].map(k=>`<img class="flame f${k}" src="${EMO("1f525")}" width="46" height="46" alt="">`).join("")}</div></div>`;
 }
 const CHECK=`<img src="${EMO("2705")}" width="96" height="96" alt="" style="display:block;margin:0 auto">`;
 
@@ -703,7 +731,7 @@ function go(n){
   c.innerHTML = (n<11? `<div class="prog">Step ${fakeShown[n]} of ${fakeTotal[n]}</div>` : "")
     + (n!==9 && n<11? `<div class="cat"><div>${catSVG(catMood[n],56)}</div>Coach Chad is watching</div>` : "")
     + `<div id="body"></div>`
-    + `<div class="fine">GainTrain Fitness™ is a made-up gym. No real accounts, payments or coaches. Animated emoji: Google Noto, CC BY 4.0. · press J to disable session timeout</div>`;
+    + `<div class="fine">GainTrain Fitness™ is a made-up gym. No real accounts, payments or coaches. Emoji: Microsoft Fluent Emoji (MIT). · press J to disable session timeout</div>`;
   steps[n]($("#body"));
   drawHUD(); poke();
   window.scrollTo({top:0});
