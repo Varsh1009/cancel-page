@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>MegaStream Cancel Boss</title>
+<title>GainTrain Cancel Boss</title>
 <style>
 :root{
   --bg:#070b24;--neon:#29d3ff;--pink:#ff3d9a;--yellow:#ffd23f;
@@ -148,8 +148,8 @@ select,input[type=text]{background:#0b0b0d;color:#f4f4f5;border-color:#27272a}
 /* evil presence */
 .vig{position:fixed;inset:0;pointer-events:none;z-index:40;box-shadow:inset 0 0 180px 40px rgba(255,0,30,.0);transition:box-shadow .25s}
 .vig.hit{box-shadow:inset 0 0 220px 80px rgba(255,0,30,.55)}
-.devil{position:fixed;pointer-events:none;z-index:70;font-size:64px;animation:devil 1.1s ease-out forwards;filter:drop-shadow(0 0 14px #ff1f3d)}
-@keyframes devil{0%{transform:translate(-50%,-50%) scale(.2) rotate(-20deg);opacity:0}25%{transform:translate(-50%,-80%) scale(1.3) rotate(8deg);opacity:1}100%{transform:translate(-50%,-160%) scale(1) rotate(0);opacity:0}}
+.devil{position:fixed;pointer-events:none;z-index:70;font-size:64px;animation:devil 1.8s ease-out forwards;filter:drop-shadow(0 0 14px #ff1f3d)}
+@keyframes devil{0%{transform:translate(-50%,-50%) scale(.2) rotate(-20deg);opacity:0}20%{transform:translate(-50%,-80%) scale(1.15) rotate(6deg);opacity:1}70%{opacity:1}100%{transform:translate(-50%,-160%) scale(1) rotate(0);opacity:0}}
 .whisper{position:fixed;top:14px;left:50%;transform:translateX(-50%);z-index:70;color:#ff1f3d;font-family:Georgia,serif;font-style:italic;
   font-size:20px;letter-spacing:.04em;text-shadow:0 0 12px #ff1f3d;pointer-events:none;animation:wh 2.2s ease-out forwards;white-space:nowrap}
 @keyframes wh{0%{opacity:0;filter:blur(6px)}15%{opacity:1;filter:blur(0)}80%{opacity:1}100%{opacity:0}}
@@ -212,6 +212,10 @@ select,input[type=text]{background:#0b0b0d;color:#f4f4f5;border-color:#27272a}
 .catsvg .blink{transform-box:fill-box;transform-origin:center;animation:blink 3.2s infinite}
 @keyframes blink{0%,92%,100%{transform:scaleY(1)}95%{transform:scaleY(.1)}}
 .catsvg .nose{fill:#ff1f3d}
+.catsvg .hair{fill:#27272a;stroke:#e4e4e7;stroke-width:2;stroke-linejoin:round}
+.catsvg .band{fill:#ff1f3d;filter:drop-shadow(0 0 4px #ff1f3d)}
+.catsvg .brow{fill:none;stroke:#e4e4e7;stroke-width:3.5;stroke-linecap:round}
+.catsvg .whistle{fill:#a1a1aa}
 .catsvg .mouth,.catsvg .whisk,.catsvg .lid{fill:none;stroke:#e4e4e7;stroke-width:2.5;stroke-linecap:round}
 .catsvg .tear{fill:#7dd3fc;animation:tear 1.3s ease-in infinite}
 .catsvg .t2{animation-delay:.6s}
@@ -335,17 +339,17 @@ function catSVG(mood="watch",size=56){
     : `<g class="track"><g class="blink"><ellipse cx="38" cy="50" rx="5" ry="6.5" class="eye"/><ellipse cx="62" cy="50" rx="5" ry="6.5" class="eye"/></g></g>`;
   const tears= mood==="sad"? `<circle cx="37" cy="58" r="2.6" class="tear"/><circle cx="63" cy="58" r="2.6" class="tear t2"/>` : "";
   return `<svg class="catsvg ${mood}" width="${size}" height="${size}" viewBox="0 0 100 100" aria-hidden="true">
-    <path class="head" d="M20 42 L24 12 L42 29 Q50 27 58 29 L76 12 L80 42 Q87 62 76 77 Q64 89 50 89 Q36 89 24 77 Q13 62 20 42Z"/>
-    <path class="inner" d="M27 21 L30 34 L38 29Z M73 21 L70 34 L62 29Z"/>${eyes}
-    <path class="nose" d="M46.5 60 L53.5 60 L50 64Z"/><path class="mouth" d="${mouth}"/>
-    <path class="whisk" d="M16 60 L32 62 M16 67 L32 66 M84 60 L68 62 M84 67 L68 66"/>${tears}</svg>`;
+    <path class="whisk" d="M31 78 Q50 98 69 78"/>
+    <circle cx="13" cy="56" r="6" class="head"/><circle cx="87" cy="56" r="6" class="head"/>
+    <ellipse cx="50" cy="56" rx="35" ry="36" class="head"/>
+    <path class="hair" d="M18 34 Q20 12 50 12 Q80 12 82 34 L76 26 L70 32 L62 24 L55 31 L48 23 L41 31 L34 24 L27 32Z"/>
+    <rect x="15" y="31" width="70" height="9" rx="3" class="band"/>
+    <path class="brow" d="${mood==="sad"?"M30 44 L44 40 M56 40 L70 44":mood==="shock"?"M30 38 L45 37 M55 37 L70 38":"M30 42 L45 44 M55 44 L70 42"}"/>
+    ${eyes}
+    <path class="mouth" d="M47 61 L50 57 L53 61"/><path class="mouth" d="${mouth}"/>
+    <rect x="58" y="86" width="13" height="7" rx="2" class="whistle"/>${tears}</svg>`;
 }
-const DEVIL=`<svg width="110" height="110" viewBox="0 0 100 100" aria-hidden="true">
-  <path d="M24 34 Q12 14 4 4 Q24 8 34 24Z M76 34 Q88 14 96 4 Q76 8 66 24Z" fill="#ff1f3d"/>
-  <circle cx="50" cy="56" r="34" fill="#5a000c" stroke="#ff1f3d" stroke-width="3"/>
-  <path d="M27 42 L45 50 L28 53Z M73 42 L55 50 L72 53Z" fill="#fff" class="deye"/>
-  <path class="jaw" d="M30 64 Q50 90 70 64 Q50 72 30 64Z" fill="#000" stroke="#ff1f3d" stroke-width="2"/>
-  <path d="M37 66.5 L40 72 L43 68 M57 68 L60 72 L63 66.5" stroke="#fff" stroke-width="2" fill="none"/></svg>`;
+const DEVIL=`<img src="devil.gif" width="150" height="150" alt="">`;
 const CHECK=`<svg class="check" width="84" height="84" viewBox="0 0 84 84" aria-hidden="true"><circle cx="42" cy="42" r="37"/><path d="M25 43 L37 55 L60 30"/></svg>`;
 
 function confetti(){
@@ -360,11 +364,11 @@ function tilt(){ const d=S.step>=11?0:(S.step%2?1:-1)*Math.min(S.step*0.45,4); $
 // headlines glitch at random
 setInterval(()=>{ const h=document.querySelector("#c h1,#c h2"); if(h && S.step<11 && Math.random()<.5){ h.classList.remove("glitch"); void h.offsetWidth; h.classList.add("glitch"); } },3500);
 // browser tab begs you to stay
-const titles=["MegaStream Cancel Boss"," Don't go…"," PLATINUM 50% OFF"," Mittens misses you"," (1) unread guilt"];
+const titles=["GainTrain Cancel Boss","Don't go…","PLATINUM PLUS 50% OFF","Leg day misses you","(1) unread guilt"];
 let ti=0; setInterval(()=>{ document.title = S.step>=11? "Cancelled " : titles[ti++%titles.length]; },1500);
 // pop-up ads with a dodging close button
-const ads=[[" YOU WON!","1 free extra year of MegaStream"],[" PLATINUM FLASH SALE","Only $899! Cats love it"],[" Mittens says:","\"please stay\" (paid actor)"],
-           [" WAIT!!","Your playlists are crying"],[" SPIN TO STAY","Every prize is a subscription"]];
+const ads=[["YOU WON!","1 free extra year of GainTrain"],["PLATINUM PLUS FLASH SALE","Only $899! Coaches love it"],["Coach Chad says:","\"please stay\" (paid actor)"],
+           [" WAIT!!","Your gains are crying"],[" SPIN TO STAY","Every prize is a membership"]];
 setInterval(()=>{
   if(S.step<1||S.step>=10||document.querySelectorAll(".ad").length>=2) return;
   const [h,s]=ads[Math.floor(Math.random()*ads.length)];
@@ -376,16 +380,16 @@ setInterval(()=>{
   ax.addEventListener("pointerenter",e=>{ if(e.pointerType==="touch"||dodged>=2) return; dodged++;
     ax.style.top=(Math.random()*70)+"px"; ax.style.right=(Math.random()*170)+"px"; });
   ax.onclick=()=>ad.remove();
-  ad.querySelector(".claim").onclick=()=>{ ad.remove(); confetti(); toast("Claimed! Your subscription is now 1 year longer "); };
+  ad.querySelector(".claim").onclick=()=>{ ad.remove(); confetti(); toast("Claimed! Your membership is now 1 year longer "); };
   W.appendChild(ad);
 },13000);
 // ---------- EVIL PRESENCE: anything that leads toward cancelling fights back ----------
 const vig=document.createElement("div"); vig.className="vig"; document.body.appendChild(vig);
 const pulse=document.createElement("div"); pulse.className="pulse"; document.body.appendChild(pulse);
 const devils=["","","","",""];
-const guilt=["Mittens saw that.","Your playlists felt that.","We gave you everything.","Brenda is crying in the break room.",
-  "47 benefits. Abandoned.","The algorithm thought you were friends.","Your watch history will be so lonely.","We remember your birthday. Do you remember ours?",
-  "Somewhere, a server is weeping.","Mittens is packing a tiny suitcase.","After everything we streamed together…","Okay. Go. We'll be fine. "];
+const guilt=["Coach Chad saw that.","Your quads felt that.","We gave you everything.","Brenda is crying in the break room.",
+  "47 machines. Untouched.","The treadmill thought you were friends.","Your gym bag will be so lonely.","We remember your birthday. Do you remember ours?",
+  "Somewhere, a dumbbell is weeping.","Coach Chad is packing his gym bag.","After everything we lifted together…","Okay. Go. We'll be fine. "];
 let lastEvil=0, actx;
 function dunDun(){
   try{
@@ -406,7 +410,7 @@ function speak(t){
     speechSynthesis.cancel(); speechSynthesis.speak(u); }catch(e){}
 }
 // ----- screen 1 headline rewrites itself every time you go for the exit -----
-const headlines=["Wait! Are you sure you're sure?","Are you SURE sure?","After everything?","We were there at 3 AM.","Mittens is watching you do this.","Fine. Click it. See what happens."];
+const headlines=["Wait! Are you sure you're sure?","Are you SURE sure?","After everything?","We were there at 3 AM.","Coach Chad is watching you do this.","Skipping leg day AND your membership?"];
 let hi=0;
 function rewriteHeadline(){ const h=document.querySelector("#body h1"); if(!h) return; hi=(hi+1)%headlines.length; h.textContent=headlines[hi];
   h.classList.remove("glitch"); void h.offsetWidth; h.classList.add("glitch"); }
@@ -419,14 +423,14 @@ document.addEventListener("pointermove",e=>{
   });
 });
 // ----- Mittens texts you -----
-const texts=["hey","where r u going","i saw u hover the cancel button","i'm not crying. ur crying","who's going to pay for my cat videos","remember 3 AM? i do","fine. FINE.","(Mittens left you on read)"];
+const texts=["hey champ","where r u going","i saw u hover the cancel button","i'm not crying. it's sweat","who's gonna spot me now","remember leg day? i do","fine. FINE. skip leg day forever","(Coach Chad left you on read)"];
 let txi=0, introDone=false;
 setInterval(()=>{
   if(!introDone||S.step<1||S.step>9) return;
   document.querySelectorAll(".notif").forEach(n=>n.remove());
   const n=document.createElement("div"); n.className="notif";
-  n.innerHTML=`<div class="av">${catSVG("sad",34)}</div><div class="nb"><b>Mittens <span>now</span></b>${texts[txi++%texts.length]}</div>`;
-  n.onclick=()=>{ n.remove(); toast("Mittens doesn't want to talk about it."); };
+  n.innerHTML=`<div class="av">${catSVG("sad",34)}</div><div class="nb"><b>Coach Chad <span>now</span></b>${texts[txi++%texts.length]}</div>`;
+  n.onclick=()=>{ n.remove(); toast("Coach Chad doesn't want to talk about it."); };
   document.body.appendChild(n);
   if(soundOn) try{ actx=actx||new (window.AudioContext||window.webkitAudioContext)(); const o=actx.createOscillator(),g=actx.createGain();
     o.frequency.value=1320; g.gain.setValueAtTime(0.05,actx.currentTime); g.gain.exponentialRampToValueAtTime(0.0001,actx.currentTime+0.25);
@@ -435,15 +439,15 @@ setInterval(()=>{
 },15000);
 
 function evil(x,y){
-  const now=Date.now(); if(now-lastEvil<1200) return; lastEvil=now;
+  const now=Date.now(); if(now-lastEvil<1900) return; lastEvil=now;
   const d=document.createElement("div"); d.className="devil"; d.innerHTML=DEVIL;
-  d.style.left=x+"px"; d.style.top=y+"px"; document.body.appendChild(d); setTimeout(()=>d.remove(),1200);
+  d.style.left=x+"px"; d.style.top=y+"px"; document.body.appendChild(d); setTimeout(()=>d.remove(),1850);
   vig.classList.add("hit"); setTimeout(()=>vig.classList.remove("hit"),350);
   const w=document.createElement("div"); w.className="whisper"; w.textContent=guilt[Math.floor(Math.random()*guilt.length)];
   speak(w.textContent);
   if(S.step===0) rewriteHeadline();
   document.querySelectorAll(".whisper").forEach(o=>o.remove()); document.body.appendChild(w); setTimeout(()=>w.remove(),2300);
-  const cat=document.querySelector(".cat"); if(cat) cat.innerHTML=`<div>${catSVG("shock",56)}</div><b style="color:#ff1f3d">MITTENS SAW THAT</b>`;
+  const cat=document.querySelector(".cat"); if(cat) cat.innerHTML=`<div>${catSVG("shock",56)}</div><b style="color:#ff1f3d">COACH SAW THAT</b>`;
   if(soundOn) dunDun();
 }
 const EVIL_IDS=new Set(["exit","save","retry","run","sure","ok","go","cont","sl"]);
@@ -463,12 +467,12 @@ function go(n){
   $("#c").onpointermove=null; $("#c").onpointerleave=null;
   tilt();
   pulse.style.setProperty("--a", n>=11? 0 : (0.05+n*0.03).toFixed(2)); // heartbeat gets stronger each step
-  $("#url").textContent=`account.megastream.example/cancel?step=${fakeShown[n]}of${fakeTotal[n]}`;
+  $("#url").textContent=`members.gaintrain.example/cancel?step=${fakeShown[n]}of${fakeTotal[n]}`;
   const c=$("#c");
   c.innerHTML = (n<11? `<div class="prog">Step ${fakeShown[n]} of ${fakeTotal[n]}</div>` : "")
-    + (n!==9 && n<11? `<div class="cat"><div>${catSVG(catMood[n],56)}</div>Mittens is watching</div>` : "")
+    + (n!==9 && n<11? `<div class="cat"><div>${catSVG(catMood[n],56)}</div>Coach Chad is watching</div>` : "")
     + `<div id="body"></div>`
-    + `<div class="fine">MegaStream™ is a made-up service. No real accounts, payments or cats. · press J to disable session timeout</div>`;
+    + `<div class="fine">GainTrain Fitness™ is a made-up gym. No real accounts, payments or coaches. · press J to disable session timeout</div>`;
   steps[n]($("#body"));
   drawHUD(); poke();
   window.scrollTo({top:0});
@@ -481,13 +485,13 @@ const steps = [
 b=>{
   b.innerHTML=`
   <h1 class="lit">${headlines[hi]}</h1>
-  <p class="lit">Cancelling means losing 47 benefits you have never used. Your playlists will be shredded. Your cat will be notified.
-  We've been together for <b style="color:#fff">1,412 days</b>. We were there at 3 AM. Every. Single. Night.</p>
+  <p class="lit">Cancelling means losing 47 machines you have never touched. Your locker will be emptied. Coach Chad will be notified.
+  You've been a member for <b style="color:#fff">1,412 days</b>. You came <b style="color:#fff">3 times</b>. We believed in you anyway.</p>
   <button class="big lit" id="keep">KEEP MY MEMBERSHIP (RECOMMENDED)</button>
-  <div class="lightsoff lit">The lights are off to save energy for our loyal members. The exit is in here somewhere.</div>
-  <label class="chk"><input type="checkbox" id="plat" checked> Also upgrade me to the 3-year Platinum plan ($899)</label>
+  <div class="lightsoff lit">The gym lights are off to save energy for our loyal members. The exit is in here somewhere.</div>
+  <label class="chk"><input type="checkbox" id="plat" checked> Also add 3 years of Platinum Plus personal training ($899)</label>
   <div class="urgent">Offer expires in <span class="timer">00:04:59</span></div>
-  <button class="grey" id="dnk">Don't not keep my subscription</button>
+  <button class="grey" id="dnk">Don't not keep my membership</button>
   <a class="hidden-exit" id="exit" href="#">no, I prefer to lose everything</a>`;
   $("#keep").onclick=()=>{ confetti(); modal(`<h3> Great choice!</h3><p>Your membership is safe. We've also restarted your cancellation, just in case.</p>`,[{label:"Yay!",cls:"blue"}]); };
   $("#dnk").onclick=()=>{ shake(); toast("Got it. You don't NOT want to keep it, so it's kept! "); };
@@ -501,7 +505,7 @@ b=>{
   // the Platinum box re-ticks itself once, 3s after you untick it
   let reticked=false;
   $("#plat").addEventListener("change",e=>{ if(!e.target.checked &&!reticked){ reticked=true;
-    setTimeout(()=>{ if(S.step===0){ $("#plat").checked=true; toast("We noticed you unchecked Platinum by accident. Fixed it! "); } },3000); } });
+    setTimeout(()=>{ if(S.step===0){ $("#plat").checked=true; toast("We noticed you unchecked Platinum Plus by accident. Fixed it! "); } },3000); } });
   $("#exit").onclick=e=>{
     e.preventDefault();
     if($("#plat").checked) modal(`<h3>Hmm </h3><p>You can't cancel <b>and</b> upgrade to Platinum at the same time. Please pick just one wish.</p>`,[{label:"OK",cls:"blue"}]);
@@ -514,9 +518,9 @@ b=>{
   const offers={
     "Too expensive":"How about 10% off… for 2 days?",
     "I don't use it":"Free month! Then you can use it.",
-    "I found something better":"Nothing is better. Here's a free mug. ",
-    "I'm moving to a cabin with no internet":"We'll mail you DVDs. By pigeon. ",
-    "Other":"'Other' is not a reason. Here's Platinum at half price!"
+    "I work out at home now":"Nobody works out at home. Here's a free protein shaker.",
+    "I'm moving to another city":"Great news: your membership works at both of our locations. Both are in this city.",
+    "Other":"'Other' is not a reason. Here's Platinum Plus at half price!"
   };
   b.innerHTML=`
   <h2>Help us understand why you're leaving us</h2>
@@ -543,13 +547,13 @@ b=>{
 // 2 · Cookie-banner style preferences, inverted labels, ON is grey / OFF is green
 b=>{
   const prefs=[
-    ["Keep my subscription",false,true],
+    ["Keep my membership",false,true],
     ["Don't disable auto-renew",false,true],
     ["Stop preventing my cancellation",true,false],
     ["Opt out of not leaving",true,false],
-    ["Pause instead of cancel",false,true],
+    ["Freeze instead of cancel",false,true],
     ["Don't not end my plan",true,false],
-    ["Auto-resubscribe me if I seem sad",false,true],
+    ["Auto-renew me every January 1st",false,true],
   ]; // [label, value needed to cancel, default]
   const state=prefs.map(p=>p[2]);
   b.innerHTML=`
@@ -601,14 +605,14 @@ b=>{
 // 4 · Fake error, retry is the real path, support is a trap
 b=>{
   b.innerHTML=`
-  <h2>Error 418: Cancellation is a teapot </h2>
-  <p>Something went wrong while processing your request to leave. This is probably your fault.</p>
-  <button class="blue" id="sup">Contact support</button>
-  <p style="margin-top:18px;font-size:12px">You could also <a href="#" id="retry" style="color:#9ca3af">retry</a>, but we don't recommend it.</p>`;
+  <h2>Error 418: Cancellations must be done in person</h2>
+  <p>For your security, memberships can only be cancelled at the front desk of your home gym, in person, with two forms of ID and a doctor's note.</p>
+  <button class="blue" id="sup">Find my front desk</button>
+  <p style="margin-top:18px;font-size:12px">Alternatively, you may <a href="#" id="retry" style="color:#9ca3af">send a certified letter</a>, but we don't recommend it.</p>`;
   $("#sup").onclick=()=>{
     let n=4812;
-    modal(`<h3> You are caller #<span id="cn">4,812</span></h3><p>Estimated wait: 3 business years.<br> <i>Soothing hold music</i> </p>`,[
-      {label:"Keep holding",cls:"blue",keep:true,fn:()=>{n+=Math.ceil(Math.random()*40);$("#cn").textContent=n.toLocaleString();}},
+    modal(`<h3>Front desk queue: #<span id="cn">4,812</span></h3><p>The front desk is open Tuesdays, 3:00&ndash;3:02 AM.<br><i>Now playing: motivational gym playlist</i></p>`,[
+      {label:"Keep waiting in line",cls:"blue",keep:true,fn:()=>{n+=Math.ceil(Math.random()*40);$("#cn").textContent=n.toLocaleString();}},
       {label:"×",cls:"x"}
     ]);
   };
@@ -618,7 +622,7 @@ b=>{
 // 5 · Retention chatbot that hears "upgrade"
 b=>{
   b.innerHTML=`
-  <h2>Chat with Brenda, Retention Specialist</h2>
+  <h2>Chat with Brenda, Membership Advisor</h2>
   <div class="chat" id="chat"></div>
   <form class="row" id="f"><input type="text" id="m" placeholder="Type a message…" autocomplete="off" style="flex:1"><button class="blue">Send</button></form>`;
   const chat=$("#chat");
@@ -626,12 +630,12 @@ b=>{
   const say=(t,after)=>{const ty=add("Brenda is typing…","bot typing");setTimeout(()=>{ty.remove();add(t,"bot");after&&after();},1100+Math.random()*700);};
   say("Hi! I'm Brenda I see you'd like to <b>UPGRADE</b>. Wonderful!");
   const cancelReplies=[
-    "Upgrade! Great choice. Shall I add Platinum? ",
-    "I hear 'cancel', which in our language means 'stay forever'. ",
-    "Did you mean: <b>can-CELEBRATE</b>?  Let's celebrate 5 more years!",
+    "Upgrade! Great choice. Shall I add personal training?",
+    "I hear 'cancel', which in gym language means 'one more rep'. ",
+    "Did you mean: <b>can-CARDIO</b>? Let's book 5 more years!",
     "…Fine. Transferring you to the next department. Please hold."
   ];
-  const other=["I love that for you! Have you considered Platinum?","Interesting. Anyway, upgrade?","I'm only trained on upgrades ","Totally. Platinum fixes that."];
+  const other=["Love that energy! Have you considered Platinum Plus?","Interesting. Anyway, upgrade?","I'm only trained on upgrades ","Totally. Personal training fixes that."];
   $("#f").onsubmit=e=>{
     e.preventDefault(); const v=$("#m").value.trim(); if(!v) return;
     add(esc(v),"me"); $("#m").value="";
@@ -644,7 +648,7 @@ b=>{
 
 // 6 · Typed confirmation, no paste, "helpful" autocorrect
 b=>{
-  const phrase="I choose to be bored forever";
+  const phrase="I am giving up on my fitness goals";
   b.innerHTML=`
   <h2>Confirm with your own two hands</h2>
   <p>Type the following <b>exactly</b>. It's case-sensitive, and we're watching.</p>
@@ -656,7 +660,7 @@ b=>{
   t.addEventListener("paste",e=>{e.preventDefault();toast("Pasting is a Platinum feature ");});
   t.addEventListener("drop",e=>e.preventDefault());
   t.addEventListener("input",()=>{
-    if(!S.ac && /bored$/.test(t.value)){S.ac=true;t.value=t.value.replace(/bored$/,"board");toast(" Autocorrect fixed a typo for you!");}
+    if(!S.ac && /goals$/.test(t.value)){S.ac=true;t.value=t.value.replace(/goals$/,"goats");toast(" Autocorrect fixed a typo for you!");}
   });
   $("#ok").onclick=()=>{ if(t.value===phrase) go(7); else $("#e").textContent="That doesn't match. Check every letter."; };
 },
@@ -666,7 +670,7 @@ b=>{
   b.innerHTML=`
   <h2>Last step! Just click Cancel.</h2>
   <p>Easy. It's right there.</p>
-  <div class="arena" id="ar"><button class="stay" id="stay">Stay with MegaStream </button><button id="run" style="left:20px;top:20px">Cancel subscription</button></div>`;
+  <div class="arena" id="ar"><button class="stay" id="stay">Stay with GainTrain</button><button id="run" style="left:20px;top:20px">Cancel membership</button></div>`;
   const run=$("#run"), ar=$("#ar");
   const taunts=["Nope","Too slow","Missed me","Over here!","Almost…","Weee","Not today","Try again","So close","Hehe","Getting tired…","One more…"];
   run.addEventListener("pointerenter",e=>{
@@ -675,7 +679,7 @@ b=>{
     const w=ar.clientWidth-run.offsetWidth-10, h=ar.clientHeight-run.offsetHeight-10;
     run.style.left=Math.random()*w+"px"; run.style.top=Math.random()*h+"px";
     run.style.transform=`scale(${1-S.dodges*0.035})`;
-    run.textContent = S.dodges>=12? "ok fine I'm tired" : taunts[S.dodges-1];
+    run.textContent = S.dodges>=12? "ok fine, I need a protein bar" : taunts[S.dodges-1];
   });
   run.onclick=()=>go(8);
   $("#stay").onclick=()=>toast("Wonderful! You're staying  (Cancel is still around here somewhere.)");
@@ -691,7 +695,7 @@ b=>{
            "#.####.##",
            "#.......G"];
   b.innerHTML=`
-  <h2>Find your way to the exit</h2>
+  <h2>Find the exit (past the treadmills)</h2>
   <p>Hover over START, then guide your mouse to the glowing red door without touching a wall. Prefer keys? Use the arrow keys.</p>
   <div class="maze" id="mz"></div><p id="mzs" class="center" style="font-size:12px"></p>`;
   const mz=$("#mz"); let pos=[0,0], armed=false;
@@ -706,7 +710,7 @@ b=>{
     const t=document.createElement("span"); t.className="tok"; cell(...pos).appendChild(t); };
   const status=t=>$("#mzs").textContent=t;
   const fail=()=>{ shake(); armed=false; mz.classList.remove("armed"); S.wallHits++; pos=[0,0]; drawTok();
-    modal(`<h3> You touched a wall!</h3><p>Upgrade to Platinum for wall-free mazes?</p>`,[{label:"Upgrade",cls:"big",fn:()=>toast("Nice try, we know you don't mean it. Back to the start!")},{label:"Back to start",cls:"grey"}]); };
+    modal(`<h3>You walked into the squat rack!</h3><p>Book a personal trainer to help you find the exit?</p>`,[{label:"Book a trainer",cls:"big",fn:()=>toast("Nice try, we know you don't mean it. Back to the start!")},{label:"Back to start",cls:"grey"}]); };
   const win=()=>{ armed=false; document.removeEventListener("keydown",keys); toast("You escaped the maze! "); setTimeout(()=>go(9),700); };
   mz.addEventListener("pointerover",e=>{
     const d=e.target.closest(".cell"); if(!d) return;
@@ -732,28 +736,28 @@ b=>{
 
 // 9 · Pet the cat goodbye
 b=>{
-  const lines=["Mittens pretends not to care.","Mittens turns away.","Mittens sniffles.","Mittens is fine. Totally fine.","Mittens knocks a glass off the table.",
-               "Mittens remembers the good times.","Mittens files a complaint.","Mittens forgives nothing.","Mittens purrs, reluctantly.","Mittens accepts your decision."];
+  const lines=["Coach Chad pretends not to care.","Coach Chad does 10 angry push-ups.","Coach Chad sniffles into his towel.","Coach Chad is fine. Totally fine.","Coach Chad blows his whistle at nobody.",
+               "Coach Chad remembers your first deadlift.","Coach Chad files a complaint.","Coach Chad forgives nothing.","Coach Chad smiles, reluctantly.","Coach Chad accepts your decision."];
   const faces=["","","","","","","","","",""];
   b.innerHTML=`
-  <h2>Before you go, pet Mittens goodbye</h2>
-  <p>10 pets required. Mittens will be notified of your cancellation.</p>
-  <button class="petcat" id="pc" aria-label="pet the cat">${catSVG("sad",150)}</button>
-  <p class="center" id="pl">0 / 10 pets</p>
+  <h2>Before you go, high-five Coach Chad goodbye</h2>
+  <p>10 high-fives required. Coach Chad will be notified of your cancellation.</p>
+  <button class="petcat" id="pc" aria-label="high-five Coach Chad">${catSVG("sad",150)}</button>
+  <p class="center" id="pl">0 / 10 high-fives</p>
   <div id="nx"></div>`;
   $("#pc").onclick=()=>{
     if(S.pets>=10) return;
     S.pets++; const pc=$("#pc");
     pc.innerHTML=catSVG(S.pets>=8?"happy":S.pets>=4?"watch":"sad",150);
     pc.classList.remove("bump"); void pc.offsetWidth; pc.classList.add("bump");
-    $("#pl").textContent=`${S.pets} / 10 pets · ${lines[S.pets-1]}`;
+    $("#pl").textContent=`${S.pets} / 10 high-fives · ${lines[S.pets-1]}`;
     if(S.pets===10){ $("#nx").innerHTML=`<button class="blue" id="cont" style="display:block;margin:10px auto">Continue to cancellation</button>`; $("#cont").onclick=()=>go(10); }
   };
 },
 
 // 10 · Fake loading
 b=>{
-  const msgs=["Processing your heartbreak…","Notifying your cat…","Shredding playlists…","Asking a manager…","Manager said no. Asking the manager's manager…","Okay. Fine."];
+  const msgs=["Processing your heartbreak…","Notifying Coach Chad…","Emptying your locker…","Asking a manager…","Manager said no. Asking the regional manager…","Okay. Fine."];
   b.innerHTML=`<div class="spin"></div><p class="center" id="lm" style="font-size:16px">${msgs[0]}</p>`;
   let i=0; const iv=setInterval(()=>{ i++; if(S.step!==10) return clearInterval(iv);
     if(i<msgs.length) $("#lm").textContent=msgs[i]; else { clearInterval(iv); go(11); } },1300);
@@ -765,23 +769,23 @@ b=>{
   confetti("");
   b.innerHTML=`
   <div class="center">${CHECK}
-  <h1 style="margin:6px 0">Subscription cancelled.</h1>
-  <p>Your cat has been notified.  Here's how hard we made it:</p></div>
+  <h1 style="margin:6px 0">Membership cancelled.</h1>
+  <p>Coach Chad has been notified.  Here's how hard we made it:</p></div>
   <div class="statgrid">
     <div class="stat"><b>${Math.floor(t/60)}m ${t%60}s</b><span>time spent leaving</span></div>
     <div class="stat"><b>${S.clicks}</b><span>clicks</span></div>
     <div class="stat"><b>${S.declined}</b><span>offers declined</span></div>
-    <div class="stat"><b>${S.wallHits}</b><span>maze walls hit</span></div>
+    <div class="stat"><b>${S.wallHits}</b><span>squat racks bumped</span></div>
     <div class="stat"><b>${S.sliderResets}</b><span>slider resets</span></div>
     <div class="stat"><b>${S.idleResets}</b><span>"session expired" resets</span></div>
   </div>
-  <button class="big" id="re">RESUBSCRIBE (WE SAVED YOUR SPOT)</button>
-  <p class="center twist">* Your cancellation takes effect in <b>30 days</b>. Until then, MegaStream will continue to miss you, bill you, and leave the porch light on.</p>
+  <button class="big" id="re">REJOIN (YOUR LOCKER IS STILL WARM)</button>
+  <p class="center twist">* Your cancellation takes effect in <b>30 days</b>, or after your next annual maintenance fee, whichever is later. Until then, we'll keep your locker warm.</p>
   <p class="center" style="font-size:12px"><a href="#" id="again" style="color:#9ca3af">Fight the boss again</a></p>`;
   const wk=document.createElement("div"); wk.className="walker";
   wk.innerHTML=`<div class="bob">${catSVG("sad",52)}</div><span class="case"></span>`;
   $("#c").appendChild(wk);
-  setTimeout(()=>{ if(S.step===11){ toast("Mittens is moving in with your neighbor."); speak("Goodbye."); } },2500);
+  setTimeout(()=>{ if(S.step===11){ toast("Coach Chad is now training your neighbor."); speak("Goodbye, champ."); } },2500);
   $("#re").onclick=()=>toast("Not after all that. Go touch grass.");
   $("#again").onclick=e=>{e.preventDefault();reset();go(0);};
 }
@@ -793,11 +797,11 @@ go(0);
 (function intro(){
   const ov=document.createElement("div"); ov.id="intro";
   ov.innerHTML=`<div>
-    <div class="in-sub">&gt; MEGASTREAM ACCOUNT SERVICES</div>
+    <div class="in-sub">&gt; GAINTRAIN FITNESS · MEMBER SERVICES</div>
     <div class="in-enc">! BOSS ENCOUNTER !</div>
     <div class="in-title" data-t="THE CANCEL SCREEN">THE CANCEL SCREEN</div>
     <div class="in-hp"><i></i></div>
-    <div class="in-tag">Level 99 Retention Specialist. It has never been defeated.</div>
+    <div class="in-tag">Level 99 Membership Retention Coach. Nobody has ever cancelled.</div>
     ${catSVG("watch",90)}
     <button id="startbtn">PRESS START</button>
     <div class="in-hint">sound on · press J for judge mode</div></div>`;
@@ -806,7 +810,7 @@ go(0);
     introDone=true; ov.classList.add("out"); setTimeout(()=>ov.remove(),650);
     reset(); go(0);
     if(soundOn) dunDun();
-    speak("Welcome back. We missed you.");
+    speak("Welcome back, champ. We missed you.");
   };
 })();
 </script>
