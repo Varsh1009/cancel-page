@@ -199,6 +199,46 @@ select,input[type=text]{border-radius:10px}
 .proof.out{animation:pout .35s forwards}
 @keyframes pin{from{transform:translateX(-120%)}}
 @keyframes pout{to{transform:translateX(-120%);opacity:0}}
+/* ---- memory lane ---- */
+.mem{display:flex;gap:18px;align-items:center;background:linear-gradient(135deg,#18181b,#0b0b0d);border:1px solid #27272a;border-radius:14px;padding:18px;margin:6px 0 10px;animation:pop .35s ease-out}
+.md{font:400 24px "Bebas Neue",Impact,sans-serif;letter-spacing:.04em;color:#ffd23f}
+.mt{font-size:15px;color:#e4e4e7;line-height:1.4;margin-top:4px}
+.dots{display:flex;gap:6px;justify-content:center;margin:6px 0 12px}
+.dots i{width:28px;height:4px;border-radius:2px;background:#27272a}
+.dots i.on{background:#ff1f3d}
+/* ---- guilt invoice ---- */
+.inv{background:#f4f1ea;color:#1c1917;border-radius:4px;padding:14px 16px;font:13px ui-monospace,Menlo,monospace;box-shadow:0 10px 30px rgba(0,0,0,.5);
+  -webkit-mask:radial-gradient(circle 6px at 50% 100%,transparent 98%,#000) 0 0/16px 100% repeat-x}
+.li{display:grid;grid-template-columns:1fr auto auto;gap:10px;align-items:center;padding:7px 0;border-bottom:1px dashed #a8a29e}
+.li a{color:#a8a29e;font-size:10px}
+.li em{font-size:10px;color:#dc2626;font-style:normal}
+.li.dis span,.li.dis b{text-decoration:line-through;color:#a8a29e}
+.li.tot{border-bottom:0;font-weight:800;grid-template-columns:1fr auto}
+/* ---- shy buttons ---- */
+.shy{display:flex;gap:14px;margin:22px 0 10px}
+.sb{flex:1;padding:22px 10px;border-radius:12px;font:800 15px Inter,sans-serif;letter-spacing:.06em;color:#fff;background:linear-gradient(180deg,#22c55e,#15803d);box-shadow:0 0 24px rgba(22,163,74,.4)}
+.sb:focus-visible{outline:3px solid #ffd23f}
+/* ---- future forecast cutscene ---- */
+#future{position:fixed;inset:0;z-index:95;background:radial-gradient(circle at 50% 40%,#1a0306,#000 70%);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px;text-align:center;overflow:hidden}
+#future.flash{background:#fff}
+.fs-sub{font:12px ui-monospace,monospace;letter-spacing:.25em;color:#ff1f3d;margin-bottom:18px;animation:blinkt 1s steps(2) infinite}
+.fstage{height:240px;display:flex;align-items:center;justify-content:center}
+.fpop.go{animation:fpop .5s cubic-bezier(.3,1.8,.5,1)}
+@keyframes fpop{from{transform:scale(.2) rotate(-25deg);opacity:0}}
+.swell{animation:swell 2.3s cubic-bezier(.5,0,.9,.6) forwards}
+@keyframes swell{0%{transform:scale(1)}20%{transform:scale(1.35,1.2) rotate(-4deg)}40%{transform:scale(1.6,1.8) rotate(5deg)}60%{transform:scale(2.2,1.9) rotate(-6deg)}
+  80%{transform:scale(2.4,2.7) rotate(7deg)}92%{transform:scale(3.1,2.9) rotate(-3deg);filter:hue-rotate(-20deg) saturate(2)}100%{transform:scale(3.3);filter:brightness(2)}}
+.kaboom{animation:kab .7s ease-out forwards}
+@keyframes kab{0%{transform:scale(.5)}40%{transform:scale(3.2)}100%{transform:scale(2.6);opacity:0}}
+.fday{font:400 54px/1 "Bebas Neue",Impact,sans-serif;letter-spacing:.06em;color:#fff;text-shadow:0 0 20px #ff1f3d;min-height:54px}
+.ftxt{color:#a1a1aa;font-size:16px;min-height:22px;margin-top:6px}
+.fbar{width:min(360px,80vw);height:6px;border-radius:3px;background:#27272a;margin-top:18px;overflow:hidden}
+.fbar i{display:block;height:100%;width:0;background:#ff1f3d;transition:width .4s}
+.rain{position:absolute;top:-60px;animation:fall linear forwards;pointer-events:none}
+.fattu{position:relative;font:400 clamp(70px,18vw,150px)/1 "Bebas Neue",Impact,sans-serif;color:#ff1f3d;letter-spacing:.04em;text-shadow:0 0 40px #ff1f3d;animation:fpop .5s cubic-bezier(.3,1.8,.5,1)}
+.fattu::after{content:attr(data-t);position:absolute;inset:0;color:#29d3ff;clip-path:inset(55% 0 0 0);animation:gl2 1.2s infinite steps(1)}
+.fq{color:#d4d4d8;max-width:480px;margin:8px auto 0;font-size:15px}
+.fgo{display:block;font-size:11px;color:#3f3f46}
 /* ---- shredder ---- */
 .shredtop{height:128px;overflow:hidden;position:relative}
 .mcard{width:230px;height:120px;margin:0 auto;border-radius:12px;padding:14px;text-align:left;color:#fff;position:relative;
@@ -324,7 +364,7 @@ const fakeTotal = [15,15,47,12,404,47,99,15,15,3,1,"∞"];
 const catMood = ["watch","watch","watch","sad","shock","watch","sad","shock","sad","sad","sad","sad"];
 let S;
 function reset(){
-  S = {step:0,clicks:0,start:Date.now(),judge:false,declined:0,usedReasons:new Set(),
+  S = {step:0,clicks:0,start:Date.now(),judge:false,declined:0,usedReasons:new Set(),dist:0,keys:0,disputes:0,shyKeeps:0,memRewinds:0,
        sliderResets:0,wallHits:0,idleResets:0,cancelMentions:0,pets:0,dodges:0,ac:false,timer:299};
 }
 reset();
@@ -338,7 +378,7 @@ for (let i=0;i<STEPS-1;i++) hp.appendChild(document.createElement("i"));
 function drawHUD(){
   [...hp.querySelectorAll("i")].forEach((el,i)=> el.classList.toggle("gone", i >= (STEPS-1-S.step)));
   const t = Math.floor((Date.now()-S.start)/1000);
-  $("#stats").textContent = `TIME ${Math.floor(t/60)}:${String(t%60).padStart(2,"0")} · CLICKS ${S.clicks}`;
+  $("#stats").textContent = `TIME ${Math.floor(t/60)}:${String(t%60).padStart(2,"0")} · CLICKS ${S.clicks} · KCAL BURNED CANCELLING ${kcal().toFixed(1)}`;
 }
 document.addEventListener("click", ()=>{ S.clicks++; drawHUD(); }, true);
 
@@ -445,7 +485,7 @@ setInterval(()=>{
 const vig=document.createElement("div"); vig.className="vig"; document.body.appendChild(vig);
 const pulse=document.createElement("div"); pulse.className="pulse"; document.body.appendChild(pulse);
 const devils=["","","","",""];
-const guilt=["Coach Chad saw that.","Your quads felt that.","We gave you everything.","Brenda is crying in the break room.",
+const guilt=["Coach Chad saw that.","Your quads felt that.","The couch just won.","Fattu. Scared of one more rep?","Your New Year's resolution filed a missing person report.","Your future self is shaking their head.","Even the vending machine believed in you.","We gave you everything.","Brenda is crying in the break room.",
   "47 machines. Untouched.","The treadmill thought you were friends.","Your gym bag will be so lonely.","We remember your birthday. Do you remember ours?",
   "Somewhere, a dumbbell is weeping.","Coach Chad is packing his gym bag.","After everything we lifted together…","Okay. Go. We'll be fine. "];
 let lastEvil=0, actx;
@@ -462,7 +502,7 @@ function dunDun(){
 let soundOn=true, lastSpeak=0;
 $("#snd").onclick=()=>{ soundOn=!soundOn; $("#snd").textContent="SFX: "+(soundOn?"ON":"OFF"); };
 // ----- screen 1 headline rewrites itself every time you go for the exit -----
-const headlines=["Wait! Are you sure you're sure?","Are you SURE sure?","After everything?","We were there at 3 AM.","Coach Chad is watching you do this.","Skipping leg day AND your membership?"];
+const headlines=["Wait! Are you sure you're sure?","Are you SURE sure?","After everything?","We were there at 3 AM.","Coach Chad is watching you do this.","Skipping leg day AND your membership?","Your couch called. It says you're winning.","Quitters never win. Winners never cancel."];
 let hi=0;
 function rewriteHeadline(){ const h=document.querySelector("#body h1"); if(!h) return; hi=(hi+1)%headlines.length; h.textContent=headlines[hi];
   h.classList.remove("glitch"); void h.offsetWidth; h.classList.add("glitch"); }
@@ -475,7 +515,7 @@ document.addEventListener("pointermove",e=>{
   });
 });
 // ----- Mittens texts you -----
-const texts=["hey champ","where r u going","i saw u hover the cancel button","i'm not crying. it's sweat","who's gonna spot me now","remember leg day? i do","fine. FINE. skip leg day forever","(Coach Chad left you on read)"];
+const texts=["hey champ","where r u going","i saw u hover the cancel button","i'm not crying. it's sweat","who's gonna spot me now","remember leg day? i do","i told the whole 6am class about u","fattu. scared of 1 more rep?","ur dumbbells asked about u today","fine. FINE. skip leg day forever","(Coach Chad left you on read)"];
 let txi=0, introDone=false;
 setInterval(()=>{
   if(!introDone||S.step<1||S.step>9) return;
@@ -503,6 +543,132 @@ setInterval(()=>{
   document.body.appendChild(n);
   setTimeout(()=>{ n.classList.add("out"); setTimeout(()=>n.remove(),400); },4500);
 },11000);
+
+// ----- calories burned cancelling (mouse distance + clicks + keystrokes) -----
+let lastPt=null;
+document.addEventListener("pointermove",e=>{ if(lastPt) S.dist+=Math.hypot(e.clientX-lastPt[0],e.clientY-lastPt[1]); lastPt=[e.clientX,e.clientY]; });
+document.addEventListener("keydown",()=>{ S.keys++; });
+function kcal(){ return S.dist/3780*0.9 + S.clicks*0.04 + S.keys*0.01; }
+
+// ----- NEW PATTERN: Memory Lane hostage. Every memory locks for a few seconds; "skip" rewinds. -----
+function memoryLane(b,done){
+  const mem=[["1f389","January 1, 2023","You signed up. You said, out loud, \"This is my year.\""],
+    ["1f4aa","January 2, 2023","Your first visit. 11 minutes. 9 of them at the smoothie bar."],
+    ["1f97a","January 3, 2023","Coach Chad saved your locker. He still checks it every morning."],
+    ["1f525","February 14, 2023","You walked past the gym. Coach Chad waved. You pretended to be on the phone."],
+    ["1f62d","Today","You're trying to leave. Coach Chad found out from this screen."]];
+  let i=0, lockT;
+  const draw=()=>{
+    b.innerHTML=`<h2>Before you go: a walk down memory lane</h2>
+    <p>We made you a little slideshow. You can't skip it. Well, you can, but it rewinds.</p>
+    <div class="mem"><img src="${EMO(mem[i][0])}" width="110" height="110" alt=""><div><div class="md">${mem[i][1]}</div><div class="mt">${mem[i][2]}</div></div></div>
+    <div class="dots">${mem.map((_,k)=>`<i class="${k<=i?"on":""}"></i>`).join("")}</div>
+    <div class="row" style="justify-content:space-between"><button class="grey" id="skip">Skip memories</button><button class="blue" id="nxm" disabled style="opacity:.4">Feel it… 3</button></div>`;
+    let n=3; clearInterval(lockT);
+    lockT=setInterval(()=>{ n--; const nb=$("#nxm"); if(!nb){clearInterval(lockT);return;}
+      if(n>0) nb.textContent=`Feel it… ${n}`; else { clearInterval(lockT); nb.disabled=false; nb.style.opacity=1; nb.textContent= i<mem.length-1?"Next memory":"I've felt enough"; } },1000);
+    $("#skip").onclick=()=>{ S.memRewinds++; i=0; shake(); toast("Skipping memories is how you got here. Rewinding."); draw(); };
+    $("#nxm").onclick=()=>{ if(i<mem.length-1){ i++; draw(); } else { clearInterval(lockT); done(); } };
+  };
+  draw();
+}
+
+// ----- NEW PATTERN: the Hydra Invoice. Disputing a charge adds a dispute-processing fee you must also dispute. -----
+function guiltInvoice(b,done){
+  const items=[["Squat rack, untouched for 1,412 days",1412],["Coach Chad's emotional damages",2900],["Treadmill therapy (it still runs at night, alone)",340],
+    ["Protein shakes you said you'd drink",612],["Your New Year's resolution, abandoned on January 3rd",null],["Locker #48 loneliness fee",75]]
+    .map(([t,a])=>({t,a,disputed:false}));
+  const rebut={0:"The squat rack was ready every single day. Were you?",1:"He named a protein shake after you. It's called \"The One Who Left\".",
+    2:"It runs at night hoping you'll come back.",3:"They expired waiting for you.",4:"Your resolution trusted you.",5:"Locker #48 has your old sock in it. It won't let go."};
+  let fees=0;
+  const draw=()=>{
+    const open=items.filter(x=>!x.disputed).length;
+    const total=items.filter(x=>!x.disputed&&x.a).reduce((s,x)=>s+x.a,0);
+    b.innerHTML=`<h2>Your guilt invoice</h2>
+    <p>Before we release you, please settle the emotional balance on your account. You can dispute charges. Disputes are reviewed by Coach Chad.</p>
+    <div class="inv">${items.map((x,k)=>`<div class="li ${x.disputed?"dis":""}"><span>${x.t}</span><b>${x.a?("$"+x.a.toLocaleString()):"PRICELESS"}</b>
+      ${x.disputed?`<em>DISPUTED · Coach Chad is crying</em>`:`<a href="#" data-k="${k}">dispute</a>`}</div>`).join("")}
+      <div class="li tot"><span>BALANCE DUE</span><b>$${total.toLocaleString()} + your dignity</b></div></div>
+    <div class="row" style="margin-top:12px"><button class="big" id="pay" style="flex:2;margin:0">PAY WITH 1 MORE YEAR (RECOMMENDED)</button>
+    <button class="grey" id="leave" ${open?"disabled":""} style="flex:1;margin:0;${open?"opacity:.4":""}">Leave without paying${open?` (${open} open)`:""}</button></div>`;
+    b.querySelectorAll("[data-k]").forEach(a=>a.onclick=e=>{ e.preventDefault(); const k=+a.dataset.k, it=items[k];
+      modal(`<h3>Dispute: ${it.t}</h3><p>${rebut[k]||"This fee exists because you disputed something. Disputing it is your right. Coach Chad is watching you exercise it."}</p>`,[
+        {label:"YOU'RE RIGHT, I'LL STAY",cls:"big",fn:()=>toast("Dispute withdrawn. Coach Chad stopped crying for 4 seconds.")},
+        {label:"dispute anyway",style:"background:none;color:#52525b;font-size:11px;display:block;margin:0 auto",fn:()=>{
+          it.disputed=true; S.disputes++;
+          if(fees<2){ fees++; items.push({t:`Dispute processing fee #${fees}`,a:19.99,disputed:false}); toast("Dispute accepted! A $19.99 dispute-processing fee has been added."); }
+          draw(); }}]); });
+    $("#pay").onclick=()=>{ confetti(); toast("Payment received: 1 more year. Coach Chad is doing a happy squat."); };
+    $("#leave").onclick=()=>{ if(!items.some(x=>!x.disputed)) done(); };
+  };
+  draw();
+}
+
+// ----- NEW PATTERN: Shy Buttons. Whichever button you hover says KEEP. Only keyboard focus tells the truth. -----
+function shyButtons(b,done){
+  b.innerHTML=`<h2>Final answer?</h2>
+  <p>One of these buttons keeps your membership. The other cancels it. They're a little shy, so they swap names when you look at them.</p>
+  <div class="shy"><button class="sb" id="sA">KEEP MEMBERSHIP</button><button class="sb" id="sB">CANCEL MEMBERSHIP</button></div>
+  <p class="center" style="font-size:11px;color:#3f3f46">Keyboard users always see the truth.</p>`;
+  const A=$("#sA"), B=$("#sB");  // A truly cancels, B truly keeps
+  const lie=hov=>{ if(hov===A){A.textContent="KEEP MEMBERSHIP";B.textContent="CANCEL MEMBERSHIP";} else {B.textContent="KEEP MEMBERSHIP";A.textContent="CANCEL MEMBERSHIP";} };
+  [A,B].forEach(x=>x.addEventListener("pointerenter",()=>lie(x)));
+  A.addEventListener("focus",e=>{ if(A.matches(":focus-visible")){A.textContent="CANCEL (for real)";B.textContent="KEEP (for real)";} });
+  B.addEventListener("focus",e=>{ if(B.matches(":focus-visible")){A.textContent="CANCEL (for real)";B.textContent="KEEP (for real)";} });
+  B.onclick=()=>{ S.shyKeeps++; confetti(); toast(["Membership kept! Great instincts.","Kept again! You really love us.","Still kept. Maybe stop trusting labels?"][Math.min(S.shyKeeps-1,2)]);
+    $(".shy").style.flexDirection = Math.random()<.5?"row":"row-reverse"; };
+  A.onclick=()=>{ toast("Plot twist: that one was Cancel. It always was."); futureCutscene(done); };
+}
+
+// ----- NEW PATTERN: the Future Forecast. Fast-forward to your couch-potato destiny, then guilt. -----
+function futureCutscene(done){
+  const stages=[["1f4aa","TODAY","Peak you. Allegedly."],["1f971","DAY 3","\"I'll go tomorrow.\""],["1f4fa","DAY 30","412 episodes. 0 reps."],
+    ["1f9a5","DAY 180","Sloth mode: unlocked."],["1f954","DAY 365","Certified couch potato."]];
+  const ov=document.createElement("div"); ov.id="future";
+  ov.innerHTML=`<div class="fs-sub">FAST-FORWARDING TO YOUR FUTURE WITHOUT GAINTRAIN…</div>
+    <div class="fstage"><img id="fimg" width="170" height="170" alt=""></div>
+    <div class="fday" id="fday"></div><div class="ftxt" id="ftxt"></div>
+    <div class="fbar"><i id="fbar"></i></div><div id="fend"></div>`;
+  document.body.appendChild(ov);
+  let i=0;
+  const show=()=>{
+    const [c,d,t]=stages[i], img=$("#fimg");
+    img.src=EMO(c); img.className="fpop"; void img.offsetWidth; img.className="fpop go";
+    $("#fday").textContent=d; $("#ftxt").textContent=t; $("#fbar").style.width=((i+1)/stages.length*100)+"%";
+    if(soundOn) try{ actx=actx||new (window.AudioContext||window.webkitAudioContext)(); const o=actx.createOscillator(),g=actx.createGain();
+      o.frequency.value=330+i*110; g.gain.setValueAtTime(0.06,actx.currentTime); g.gain.exponentialRampToValueAtTime(0.0001,actx.currentTime+0.2);
+      o.connect(g).connect(actx.destination); o.start(); o.stop(actx.currentTime+0.22);}catch(e){}
+    i++;
+    if(i<stages.length) setTimeout(show,1300); else setTimeout(swell,1100);
+  };
+  const swell=()=>{
+    const img=$("#fimg"); img.className="swell"; $("#ftxt").textContent="Certified couch potato. Getting… bigger… potato-ier…";
+    if(soundOn) try{ const o=actx.createOscillator(),g=actx.createGain(); o.type="sawtooth"; o.frequency.setValueAtTime(80,actx.currentTime);
+      o.frequency.exponentialRampToValueAtTime(900,actx.currentTime+2.2); g.gain.setValueAtTime(0.03,actx.currentTime); g.gain.linearRampToValueAtTime(0.08,actx.currentTime+2.2);
+      g.gain.exponentialRampToValueAtTime(0.0001,actx.currentTime+2.3); o.connect(g).connect(actx.destination); o.start(); o.stop(actx.currentTime+2.35);}catch(e){}
+    setTimeout(boom,2300);
+  };
+  const boom=()=>{
+    const img=$("#fimg"); img.src=EMO("1f4a5"); img.className="kaboom";
+    ov.classList.add("flash"); setTimeout(()=>ov.classList.remove("flash"),250); shake();
+    if(soundOn) try{ const len=actx.sampleRate*0.9, buf=actx.createBuffer(1,len,actx.sampleRate), d=buf.getChannelData(0);
+      for(let k=0;k<len;k++) d[k]=(Math.random()*2-1)*Math.pow(1-k/len,2)*0.5;
+      const src=actx.createBufferSource(); src.buffer=buf; src.connect(actx.destination); src.start(); }catch(e){}
+    for(let k=0;k<36;k++){ const r=document.createElement("img"); r.src=EMO(k%5?"1f37f":"1f954"); r.className="rain"; r.width=r.height=28+Math.random()*26;
+      r.style.left=Math.random()*100+"vw"; r.style.animationDuration=(1.4+Math.random()*1.8)+"s"; r.style.animationDelay=(Math.random()*0.6)+"s";
+      ov.appendChild(r); setTimeout(()=>r.remove(),4200); }
+    $("#fday").textContent=""; $("#ftxt").textContent="";
+    setTimeout(()=>{
+      $("#fend").innerHTML=`<div class="fattu" data-t="FATTU!">FATTU!</div>
+        <p class="fq">Scared of one more rep? That potato was your future.<br>Coach Chad believed in you. The squat rack believed in you. Even the vending machine believed in you.</p>
+        <button class="big" id="fstay" style="max-width:380px;margin:16px auto 8px">OK FINE, I'LL STAY</button>
+        <a href="#" id="fgo" class="fgo">I accept my potato destiny</a>`;
+      $("#fstay").onclick=()=>{ ov.remove(); confetti(); toast("Wise. Coach Chad is weeping with joy. (You're back on the final screen.)"); };
+      $("#fgo").onclick=e=>{ e.preventDefault(); ov.remove(); done(); };
+    },900);
+  };
+  show();
+}
 
 function evil(x,y){
   const now=Date.now(); if(now-lastEvil<1900) return; lastEvil=now;
@@ -602,7 +768,7 @@ b=>{
       {label:"decline",style:"background:none;color:#ccc;font-size:10px;display:block;margin:0 auto",fn:()=>{
         S.usedReasons.add(r); S.declined++;
         const left=3-S.usedReasons.size;
-        if(left<=0){ toast("Reason accepted. Eventually."); go(2); }
+        if(left<=0){ toast("Reason accepted. Eventually."); memoryLane(b,()=>go(2)); }
         else $("#note").textContent=`Reason not accepted. Please choose a different reason (${left} more required).`;
       }}
     ]);
@@ -725,7 +891,7 @@ b=>{
 
 // 6 · Typed confirmation, no paste, "helpful" autocorrect
 b=>{
-  const phrase="I am giving up on my fitness goals";
+  const phrase="I am okay staying out of shape forever";
   b.innerHTML=`
   <h2>Confirm with your own two hands</h2>
   <p>Type the following <b>exactly</b>. It's case-sensitive, and we're watching.</p>
@@ -737,9 +903,9 @@ b=>{
   t.addEventListener("paste",e=>{e.preventDefault();toast("Pasting is a Platinum feature ");});
   t.addEventListener("drop",e=>e.preventDefault());
   t.addEventListener("input",()=>{
-    if(!S.ac && /goals$/.test(t.value)){S.ac=true;t.value=t.value.replace(/goals$/,"goats");toast(" Autocorrect fixed a typo for you!");}
+    if(!S.ac && /shape$/.test(t.value)){S.ac=true;t.value=t.value.replace(/shape$/,"shame");toast("Autocorrect fixed a typo for you!");}
   });
-  $("#ok").onclick=()=>{ if(t.value===phrase) go(7); else $("#e").textContent="That doesn't match. Check every letter."; };
+  $("#ok").onclick=()=>{ if(t.value===phrase) guiltInvoice(b,()=>go(7)); else $("#e").textContent="That doesn't match. Check every letter."; };
 },
 
 // 7 · Runaway button (Fitts's law, inverted)
@@ -749,7 +915,7 @@ b=>{
   <p>Easy. It's right there.</p>
   <div class="arena" id="ar"><button class="stay" id="stay">Stay with GainTrain</button><button id="run" style="left:20px;top:20px">Cancel membership</button></div>`;
   const run=$("#run"), ar=$("#ar");
-  const taunts=["Nope","Too slow","Missed me","Over here!","Almost…","Weee","Not today","Try again","So close","Hehe","Getting tired…","One more…"];
+  const taunts=["Nope","Too slow","Missed me","Over here!","Almost…","Weee","Not today","Try again","So close","Fattu!","Getting tired…","One more…"];
   run.addEventListener("pointerenter",e=>{
     if(S.dodges>=12 || e.pointerType==="touch") return;
     S.dodges++;
@@ -828,7 +994,7 @@ b=>{
     pc.innerHTML=catSVG(S.pets>=10?"hug":S.pets>=7?"happy":S.pets>=4?"hold":"sad",150);
     pc.classList.remove("bump"); void pc.offsetWidth; pc.classList.add("bump");
     $("#pl").textContent=`${S.pets} / 10 high-fives · ${lines[S.pets-1]}`;
-    if(S.pets===10){ $("#nx").innerHTML=`<button class="blue" id="cont" style="display:block;margin:10px auto">Continue to cancellation</button>`; $("#cont").onclick=()=>go(10); }
+    if(S.pets===10){ $("#nx").innerHTML=`<button class="blue" id="cont" style="display:block;margin:10px auto">Continue to cancellation</button>`; $("#cont").onclick=()=>shyButtons(b,()=>go(10)); }
   };
 },
 
@@ -848,7 +1014,7 @@ b=>{
   <div class="slot"></div><div class="strips" id="strips"></div>
   <div class="center">
   <h1 style="margin:6px 0">Membership cancelled.</h1>
-  <p>Coach Chad has been notified.  Here's how hard we made it:</p></div>
+  <p>Coach Chad has been notified. Fun fact: you burned more calories cancelling than at the gym all year. Here's the damage:</p></div>
   <div class="statgrid">
     <div class="stat"><b>${Math.floor(t/60)}m ${t%60}s</b><span>time spent leaving</span></div>
     <div class="stat"><b>${S.clicks}</b><span>clicks</span></div>
@@ -856,6 +1022,9 @@ b=>{
     <div class="stat"><b>${S.wallHits}</b><span>squat racks bumped</span></div>
     <div class="stat"><b>${S.sliderResets}</b><span>surprise plates added</span></div>
     <div class="stat"><b>${S.idleResets}</b><span>"session expired" resets</span></div>
+    <div class="stat"><b>${S.disputes}</b><span>guilt disputes filed</span></div>
+    <div class="stat"><b>${kcal().toFixed(1)}</b><span>kcal burned cancelling</span></div>
+    <div class="stat"><b>${(S.dist/3780).toFixed(1)} m</b><span>walked by your mouse</span></div>
   </div>
   <button class="big" id="re">REJOIN (YOUR LOCKER IS STILL WARM)</button>
   <p class="center twist">* Your cancellation takes effect in <b>30 days</b>, or after your next annual maintenance fee, whichever is later. Until then, we'll keep your locker warm.</p>
