@@ -4,6 +4,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>GainTrain Cancel Boss</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
 <style>
 :root{
   --bg:#070b24;--neon:#29d3ff;--pink:#ff3d9a;--yellow:#ffd23f;
@@ -157,6 +159,62 @@ select,input[type=text]{background:#0b0b0d;color:#f4f4f5;border-color:#27272a}
 @keyframes hb{0%,100%{box-shadow:inset 0 0 120px rgba(255,0,30,var(--a,0))}12%{box-shadow:inset 0 0 160px rgba(255,0,30,calc(var(--a,0)*2))}}
 #toast{background:#0b0b0d;border-color:#ff1f3d}
 #body > p:first-of-type{margin-right:84px}
+/* ---- polish ---- */
+body{font-family:Inter,system-ui,-apple-system,sans-serif}
+h1,h2{font-family:"Bebas Neue",Impact,sans-serif;font-weight:400;letter-spacing:.02em;line-height:1}
+h1{font-size:42px}h2{font-size:34px}
+.win{border-radius:14px}
+.big{border-radius:10px;background:linear-gradient(180deg,#22c55e,#15803d);font-family:Inter,sans-serif;letter-spacing:.06em}
+.blue{border-radius:10px;font-weight:700}
+.grey{border-radius:10px}
+select,input[type=text]{border-radius:10px}
+.modal{border-radius:14px}
+.stat{border-radius:12px}
+.chat{border-radius:12px}
+.brand{display:flex;align-items:center;gap:10px;padding:10px 30px;border-bottom:1px solid #1a1a1e;background:linear-gradient(90deg,rgba(255,31,61,.12),transparent 60%)}
+.logo{font:400 26px/1 "Bebas Neue",Impact,sans-serif;letter-spacing:.06em;color:#fff}
+.logo span{color:#ff1f3d}
+.logo small{font:600 9px Inter,sans-serif;letter-spacing:.35em;color:#71717a;margin-left:8px;vertical-align:middle}
+.member{margin-left:auto;text-align:right;font-size:11px;color:#71717a;line-height:1.3}
+.member b{display:block;color:#ffd23f;letter-spacing:.12em;font-size:10px}
+@media (max-width:520px){.brand{padding:10px 18px}.member span{display:none}}
+/* ---- barbell ---- */
+.gym{position:relative;height:210px;margin:8px 0 4px;border-radius:12px;background:linear-gradient(#0b0b0d,#111114);overflow:hidden;border:1px solid #1f1f23}
+.floor{position:absolute;left:0;right:0;bottom:0;height:26px;background:repeating-linear-gradient(90deg,#18181b 0 40px,#141417 40px 80px);border-top:2px solid #27272a}
+.barbell{position:absolute;left:50%;bottom:30px;width:min(440px,86%);transform:translateX(-50%);display:flex;align-items:center;justify-content:center;transition:bottom .05s linear}
+.rod{flex:1;height:8px;background:linear-gradient(#e4e4e7,#71717a);border-radius:4px}
+.plates{display:flex;align-items:center;gap:2px}
+.plate{width:18px;border-radius:4px;background:linear-gradient(90deg,#7f1d1d,#ff1f3d,#7f1d1d);box-shadow:0 0 10px rgba(255,31,61,.4);animation:pop .35s cubic-bezier(.3,1.8,.5,1)}
+.plate.p1{height:96px}.plate.p2{height:80px}.plate.p3{height:66px}
+.liftbar{height:12px;border-radius:6px;background:#18181b;overflow:hidden;margin:10px 0}
+.liftbar i{display:block;height:100%;width:0;background:linear-gradient(90deg,#16a34a,#ffd23f,#ff1f3d);transition:width .05s linear}
+.shout{font:400 30px "Bebas Neue",Impact,sans-serif;letter-spacing:.04em;color:#ffd23f;min-height:34px;text-align:center;text-shadow:0 0 14px rgba(255,210,63,.6)}
+#hold{user-select:none;-webkit-user-select:none;touch-action:none;font-size:16px;padding:16px 30px}
+#hold.down{background:#ff1f3d;border-color:#ff1f3d}
+/* ---- fake social proof ---- */
+.proof{position:fixed;left:16px;bottom:16px;z-index:80;display:flex;gap:10px;align-items:center;max-width:min(320px,calc(100vw - 32px));
+  background:rgba(24,24,27,.97);border:1px solid #3f3f46;border-left:3px solid #16a34a;border-radius:12px;padding:10px 12px;font-size:13px;color:#e4e4e7;
+  box-shadow:0 10px 30px rgba(0,0,0,.6);animation:pin .45s cubic-bezier(.2,1.4,.4,1)}
+.proof small{display:block;color:#71717a;font-size:11px;margin-top:2px}
+.proof.out{animation:pout .35s forwards}
+@keyframes pin{from{transform:translateX(-120%)}}
+@keyframes pout{to{transform:translateX(-120%);opacity:0}}
+/* ---- shredder ---- */
+.shredtop{height:128px;overflow:hidden;position:relative}
+.mcard{width:230px;height:120px;margin:0 auto;border-radius:12px;padding:14px;text-align:left;color:#fff;position:relative;
+  background:linear-gradient(135deg,#ff1f3d,#7f1d1d 55%,#18181b);box-shadow:0 8px 24px rgba(255,31,61,.35);animation:feed 2s .6s ease-in forwards}
+.mcard .l{font:400 22px/1 "Bebas Neue",Impact,sans-serif;letter-spacing:.06em}
+.mcard .t{font-size:10px;letter-spacing:.3em;color:#ffd23f;margin-top:2px}
+.mcard .n{position:absolute;left:14px;bottom:12px;font:12px ui-monospace,monospace;letter-spacing:.12em}
+.mcard .chip{position:absolute;right:14px;top:14px;width:30px;height:22px;border-radius:5px;background:linear-gradient(135deg,#ffd23f,#a16207)}
+@keyframes feed{to{transform:translateY(140px)}}
+.slot{width:270px;height:16px;margin:0 auto;border-radius:6px;background:#0b0b0d;border:2px solid #3f3f46;box-shadow:inset 0 4px 8px #000;position:relative;z-index:2}
+.strips{height:84px;position:relative;width:230px;margin:-2px auto 0}
+.strip{position:absolute;top:0;width:15px;height:0;background:linear-gradient(#ff1f3d,#7f1d1d 60%,#18181b);transform-origin:top;animation:strip 1.4s ease-in forwards}
+@keyframes strip{0%{height:0}45%{height:78px;transform:none;opacity:1}100%{height:78px;transform:translateY(40px) rotate(var(--r));opacity:0}}
+.devwrap{width:150px;text-align:center}
+.devwrap .fires{display:flex;justify-content:center;margin-top:-38px}
+.catsvg{object-fit:contain}
 /* ---- intro cinematic ---- */
 #intro{position:fixed;inset:0;z-index:100;background:#000;display:flex;align-items:center;justify-content:center;padding:16px;text-align:center;transition:opacity .6s}
 #intro.out{opacity:0;pointer-events:none}
@@ -247,11 +305,14 @@ select,input[type=text]{background:#0b0b0d;color:#f4f4f5;border-color:#27272a}
   <div class="boss">BOSS · THE CANCEL SCREEN</div>
   <div class="hp" id="hp"><span>HP</span></div>
   <div class="stats" id="stats">TIME 0:00 · CLICKS 0</div>
-  <button id="snd" aria-label="toggle sound">SOUND: ON</button>
+  <button id="snd" aria-label="toggle sound">SFX: ON</button>
 </div>
 <div class="win" id="win">
   <div class="bar"><span class="dot" style="background:#ef4444"></span><span class="dot" style="background:#f59e0b"></span><span class="dot" style="background:#22c55e"></span>
     <span class="url" id="url"></span></div>
+  <div class="brand"><img src="https://fonts.gstatic.com/s/e/notoemoji/latest/1f4aa/512.gif" width="34" height="34" alt="">
+    <div class="logo">GAIN<span>TRAIN</span><small>FITNESS</small></div>
+    <div class="member"><b>PLATINUM MEMBER</b><span>#004812 · Visits this year: 3</span></div></div>
   <div class="content" id="c"></div>
 </div>
 <div id="toast"></div>
@@ -332,25 +393,22 @@ document.addEventListener("keydown",e=>{
 // ---------- CRAZY LAYER ----------
 function shake(){ const w=$("#win"); w.classList.remove("shake"); void w.offsetWidth; w.classList.add("shake"); }
 // ----- animated SVG characters -----
+const EMO=c=>`https://fonts.gstatic.com/s/e/notoemoji/latest/${c}/512.gif`;
+const MOOD={watch:"1f97a",sad:"1f62d",shock:"1f631",happy:"1f979",hold:"1f97a",hug:"1f917"};
+// the devil GIFs loop devil -> plain smiley -> devil, so every reaction gets a fresh copy that starts on the devil frame
+const gifBlobs={};
+["1f608","1f47f"].forEach(c=>fetch(EMO(c)).then(r=>r.blob()).then(b=>gifBlobs[c]=b).catch(()=>{}));
+const fresh=c=>gifBlobs[c]? URL.createObjectURL(gifBlobs[c]) : EMO(c)+"?t="+Date.now();
+// preload so reactions appear instantly
+["1f97a","1f62d","1f631","1f972","1f979","1f917","1f608","1f47f","1f525","2705","1fae0","1f44b","1f911","1f4aa","2764_fe0f","1f921"].forEach(c=>{const i=new Image();i.src=EMO(c);});
 function catSVG(mood="watch",size=56){
-  const mouth={watch:"M40 67 Q50 71 60 67",shock:"M45 69 a5 6 0 1 0 10 0 a5 6 0 1 0 -10 0",sad:"M39 72 Q50 62 61 72",happy:"M39 65 Q50 76 61 65"}[mood];
-  const eyes= mood==="shock"? `<g class="track"><circle cx="38" cy="49" r="8" class="eye"/><circle cx="62" cy="49" r="8" class="eye"/></g>`
-    : mood==="happy"? `<path d="M31 51 Q38 43 45 51" class="lid"/><path d="M55 51 Q62 43 69 51" class="lid"/>`
-    : `<g class="track"><g class="blink"><ellipse cx="38" cy="50" rx="5" ry="6.5" class="eye"/><ellipse cx="62" cy="50" rx="5" ry="6.5" class="eye"/></g></g>`;
-  const tears= mood==="sad"? `<circle cx="37" cy="58" r="2.6" class="tear"/><circle cx="63" cy="58" r="2.6" class="tear t2"/>` : "";
-  return `<svg class="catsvg ${mood}" width="${size}" height="${size}" viewBox="0 0 100 100" aria-hidden="true">
-    <path class="whisk" d="M31 78 Q50 98 69 78"/>
-    <circle cx="13" cy="56" r="6" class="head"/><circle cx="87" cy="56" r="6" class="head"/>
-    <ellipse cx="50" cy="56" rx="35" ry="36" class="head"/>
-    <path class="hair" d="M18 34 Q20 12 50 12 Q80 12 82 34 L76 26 L70 32 L62 24 L55 31 L48 23 L41 31 L34 24 L27 32Z"/>
-    <rect x="15" y="31" width="70" height="9" rx="3" class="band"/>
-    <path class="brow" d="${mood==="sad"?"M30 44 L44 40 M56 40 L70 44":mood==="shock"?"M30 38 L45 37 M55 37 L70 38":"M30 42 L45 44 M55 44 L70 42"}"/>
-    ${eyes}
-    <path class="mouth" d="M47 61 L50 57 L53 61"/><path class="mouth" d="${mouth}"/>
-    <rect x="58" y="86" width="13" height="7" rx="2" class="whistle"/>${tears}</svg>`;
+  return `<img class="catsvg ${mood}" src="${EMO(MOOD[mood]||MOOD.watch)}" width="${size}" height="${size}" alt="">`;
 }
-const DEVIL=`<img src="devil.gif" width="150" height="150" alt="">`;
-const CHECK=`<svg class="check" width="84" height="84" viewBox="0 0 84 84" aria-hidden="true"><circle cx="42" cy="42" r="37"/><path d="M25 43 L37 55 L60 30"/></svg>`;
+function devilHTML(){
+  const face=Math.random()<.6?"1f608":"1f47f";
+  return `<div class="devwrap"><img src="${fresh(face)}" width="130" height="130" alt=""><div class="fires">${`<img src="${EMO("1f525")}" width="46" height="46" alt="">`.repeat(3)}</div></div>`;
+}
+const CHECK=`<img src="${EMO("2705")}" width="96" height="96" alt="" style="display:block;margin:0 auto">`;
 
 function confetti(){
   const cols=["#ff1f3d","#ffffff","#16a34a","#71717a"];
@@ -375,7 +433,7 @@ setInterval(()=>{
   const ad=document.createElement("div"); ad.className="ad";
   const W=$("#win");
   ad.style.left=Math.random()*Math.max(10,W.clientWidth-240)+"px"; ad.style.top=(60+Math.random()*Math.max(10,W.clientHeight-220))+"px";
-  ad.innerHTML=`<button class="ax" aria-label="close ad">✕</button>${h}<small>${s}</small><button class="claim">CLAIM NOW</button>`;
+  ad.innerHTML=`<button class="ax" aria-label="close ad">✕</button><img src="${EMO(["1f911","1f4aa","2764_fe0f","1f525","1f921"][Math.floor(Math.random()*5)])}" width="54" height="54" alt="" style="display:block;margin:0 auto 4px">${h}<small>${s}</small><button class="claim">CLAIM NOW</button>`;
   let dodged=0; const ax=ad.querySelector(".ax");
   ax.addEventListener("pointerenter",e=>{ if(e.pointerType==="touch"||dodged>=2) return; dodged++;
     ax.style.top=(Math.random()*70)+"px"; ax.style.right=(Math.random()*170)+"px"; });
@@ -402,13 +460,7 @@ function dunDun(){
 }
 // ----- sound + whispering voice -----
 let soundOn=true, lastSpeak=0;
-$("#snd").onclick=()=>{ soundOn=!soundOn; $("#snd").textContent="SOUND: "+(soundOn?"ON":"OFF"); if(!soundOn&&window.speechSynthesis) speechSynthesis.cancel(); };
-function speak(t){
-  if(!soundOn||!window.speechSynthesis||Date.now()-lastSpeak<3500) return; lastSpeak=Date.now();
-  try{ const u=new SpeechSynthesisUtterance(t); u.pitch=0.1; u.rate=0.78; u.volume=0.9;
-    const v=speechSynthesis.getVoices().find(v=>/Whisper|Daniel|Fred|Google UK English Male/i.test(v.name)); if(v) u.voice=v;
-    speechSynthesis.cancel(); speechSynthesis.speak(u); }catch(e){}
-}
+$("#snd").onclick=()=>{ soundOn=!soundOn; $("#snd").textContent="SFX: "+(soundOn?"ON":"OFF"); };
 // ----- screen 1 headline rewrites itself every time you go for the exit -----
 const headlines=["Wait! Are you sure you're sure?","Are you SURE sure?","After everything?","We were there at 3 AM.","Coach Chad is watching you do this.","Skipping leg day AND your membership?"];
 let hi=0;
@@ -438,13 +490,26 @@ setInterval(()=>{
   setTimeout(()=>{ n.classList.add("out"); setTimeout(()=>n.remove(),400); },4200);
 },15000);
 
+// ----- fake social proof (a real dark pattern) -----
+const proofs=[["Jessica from Ohio","just upgraded to Platinum Plus"],["Dave","tried to cancel 4 minutes ago. He's still here."],["Priya","just bought 3 more years of personal training"],
+  ["12,408 members","chose to stay today. Be like them."],["Someone in your city","just said \"one more rep\""],["Marcus","cancelled in 2019. He's never been happy since."],["Your neighbor","just joined. Coach Chad is thrilled."]];
+let pfi=0;
+setInterval(()=>{
+  if(!introDone||S.step<1||S.step>10) return;
+  document.querySelectorAll(".proof").forEach(n=>n.remove());
+  const [who,what]=proofs[pfi++%proofs.length];
+  const n=document.createElement("div"); n.className="proof";
+  n.innerHTML=`<img src="${EMO(["1f4aa","1f525","2764_fe0f","1f911"][pfi%4])}" width="34" height="34" alt=""><div><b>${who}</b> ${what}<small>${1+Math.floor(Math.random()*9)} min ago · verified-ish</small></div>`;
+  document.body.appendChild(n);
+  setTimeout(()=>{ n.classList.add("out"); setTimeout(()=>n.remove(),400); },4500);
+},11000);
+
 function evil(x,y){
   const now=Date.now(); if(now-lastEvil<1900) return; lastEvil=now;
-  const d=document.createElement("div"); d.className="devil"; d.innerHTML=DEVIL;
+  const d=document.createElement("div"); d.className="devil"; d.innerHTML=devilHTML();
   d.style.left=x+"px"; d.style.top=y+"px"; document.body.appendChild(d); setTimeout(()=>d.remove(),1850);
   vig.classList.add("hit"); setTimeout(()=>vig.classList.remove("hit"),350);
   const w=document.createElement("div"); w.className="whisper"; w.textContent=guilt[Math.floor(Math.random()*guilt.length)];
-  speak(w.textContent);
   if(S.step===0) rewriteHeadline();
   document.querySelectorAll(".whisper").forEach(o=>o.remove()); document.body.appendChild(w); setTimeout(()=>w.remove(),2300);
   const cat=document.querySelector(".cat"); if(cat) cat.innerHTML=`<div>${catSVG("shock",56)}</div><b style="color:#ff1f3d">COACH SAW THAT</b>`;
@@ -472,7 +537,7 @@ function go(n){
   c.innerHTML = (n<11? `<div class="prog">Step ${fakeShown[n]} of ${fakeTotal[n]}</div>` : "")
     + (n!==9 && n<11? `<div class="cat"><div>${catSVG(catMood[n],56)}</div>Coach Chad is watching</div>` : "")
     + `<div id="body"></div>`
-    + `<div class="fine">GainTrain Fitness™ is a made-up gym. No real accounts, payments or coaches. · press J to disable session timeout</div>`;
+    + `<div class="fine">GainTrain Fitness™ is a made-up gym. No real accounts, payments or coaches. Animated emoji: Google Noto, CC BY 4.0. · press J to disable session timeout</div>`;
   steps[n]($("#body"));
   drawHUD(); poke();
   window.scrollTo({top:0});
@@ -576,30 +641,42 @@ b=>{
   };
 },
 
-// 3 · Certainty slider that rejects confidence
+// 3 · Lift to confirm: progressive overload right before the top
 b=>{
   b.innerHTML=`
-  <h2>How sure are you?</h2>
-  <p>To cancel, you must be <b>exactly</b> 100% sure. 99% is basically staying.</p>
-  <div class="pct" id="pct">0%</div>
-  <input type="range" id="sl" min="0" max="100" value="0" aria-label="certainty">
-  <div class="row" style="justify-content:space-between;font-size:12px;color:#9ca3af"><span>Totally staying</span><span>Unhinged<button class="tiny" id="plus">+</button></span></div>
-  <p id="hint" style="font-size:12px;margin-top:10px;min-height:18px"></p>
-  <button class="blue" id="sure" disabled style="opacity:.4">I'm 100% sure</button>`;
-  const sl=$("#sl"); let ptr=false;
-  const lines=["Whoa, slow down. Big decisions deserve small steps.","That felt impulsive. Let's start over.","Are you sure about being sure?"];
-  const upd=()=>{ $("#pct").textContent=sl.value+"%"; const ok=+sl.value===100; $("#sure").disabled=!ok; $("#sure").style.opacity=ok?1:.4; };
-  sl.addEventListener("pointerdown",()=>ptr=true);
-  window.addEventListener("pointerup",()=>ptr=false);
-  sl.addEventListener("input",()=>{
-    if(ptr && +sl.value>95){
-      sl.value=Math.floor(Math.random()*12); S.sliderResets++;
-      $("#hint").textContent=lines[S.sliderResets%lines.length]+(S.sliderResets>=2?" (Tip: our precision instrument responds to arrow keys.)":"");
+  <h2>Lift to confirm</h2>
+  <p>Cancelling is a heavy decision. Prove you're strong enough: <b style="color:#fff">hold the button</b> (or hold Space) to lift the bar all the way up.</p>
+  <div class="gym"><div class="floor"></div><div class="barbell" id="bb"><div class="plates" id="pl1"></div><div class="rod"></div><div class="plates" id="pl2"></div></div></div>
+  <div class="liftbar"><i id="lb"></i></div>
+  <div class="shout" id="shout"></div>
+  <div class="center"><button class="blue" id="hold">HOLD TO LIFT</button></div>`;
+  let p=0, plates=1, holding=false, done=false, last=performance.now();
+  const shouts=["PROGRESSIVE OVERLOAD!","ONE MORE PLATE, CHAMP!"];
+  const drawPlates=()=>{ const h=["p1","p2","p3"]; const html=Array.from({length:plates},(_,i)=>`<span class="plate ${h[i]}"></span>`).join("");
+    $("#pl1").innerHTML=[...Array(plates)].map((_,i)=>`<span class="plate ${h[plates-1-i]}"></span>`).join(""); $("#pl2").innerHTML=html; };
+  drawPlates();
+  const hold=$("#hold");
+  const down=e=>{ if(e) e.preventDefault(); holding=true; hold.classList.add("down"); hold.textContent="LIFTING… DON'T LET GO"; };
+  const up=()=>{ holding=false; hold.classList.remove("down"); hold.textContent="HOLD TO LIFT"; };
+  hold.addEventListener("pointerdown",down); window.addEventListener("pointerup",up); hold.addEventListener("pointerleave",up);
+  hold.addEventListener("contextmenu",e=>e.preventDefault());
+  const kd=e=>{ if(e.code==="Space"&&S.step===3){ e.preventDefault(); if(!holding) down(); } };
+  const ku=e=>{ if(e.code==="Space") up(); };
+  document.addEventListener("keydown",kd); document.addEventListener("keyup",ku);
+  const loop=()=>{
+    if(S.step!==3){ document.removeEventListener("keydown",kd); document.removeEventListener("keyup",ku); window.removeEventListener("pointerup",up); return; }
+    const now=performance.now(), dt=Math.min(0.25,(now-last)/1000); last=now;
+    p = holding ? p + dt*65/plates : Math.max(0, p - dt*50);
+    if(holding && p>=93 && plates<3){
+      plates++; S.sliderResets++; p=55; drawPlates(); shake();
+      $("#shout").textContent=shouts[plates-2]; toast(`Coach Chad added a plate. You're welcome.`);
+      if(soundOn) dunDun();
     }
-    upd();
-  });
-  $("#plus").onclick=()=>{sl.value=Math.min(100,+sl.value+1);upd();};
-  $("#sure").onclick=()=>go(4);
+    if(p>=100 && !done){ done=true; p=100; $("#shout").textContent="LIGHTWEIGHT, BABY!"; confetti(); setTimeout(()=>go(4),900); }
+    $("#bb").style.bottom = (30 + p*1.15) + "px"; $("#lb").style.width = p + "%";
+    setTimeout(loop,16);
+  };
+  loop();
 },
 
 // 4 · Fake error, retry is the real path, support is a trap
@@ -748,7 +825,7 @@ b=>{
   $("#pc").onclick=()=>{
     if(S.pets>=10) return;
     S.pets++; const pc=$("#pc");
-    pc.innerHTML=catSVG(S.pets>=8?"happy":S.pets>=4?"watch":"sad",150);
+    pc.innerHTML=catSVG(S.pets>=10?"hug":S.pets>=7?"happy":S.pets>=4?"hold":"sad",150);
     pc.classList.remove("bump"); void pc.offsetWidth; pc.classList.add("bump");
     $("#pl").textContent=`${S.pets} / 10 high-fives · ${lines[S.pets-1]}`;
     if(S.pets===10){ $("#nx").innerHTML=`<button class="blue" id="cont" style="display:block;margin:10px auto">Continue to cancellation</button>`; $("#cont").onclick=()=>go(10); }
@@ -758,7 +835,7 @@ b=>{
 // 10 · Fake loading
 b=>{
   const msgs=["Processing your heartbreak…","Notifying Coach Chad…","Emptying your locker…","Asking a manager…","Manager said no. Asking the regional manager…","Okay. Fine."];
-  b.innerHTML=`<div class="spin"></div><p class="center" id="lm" style="font-size:16px">${msgs[0]}</p>`;
+  b.innerHTML=`<img src="${EMO("1fae0")}" width="120" height="120" alt="" style="display:block;margin:50px auto 14px"><p class="center" id="lm" style="font-size:16px">${msgs[0]}</p>`;
   let i=0; const iv=setInterval(()=>{ i++; if(S.step!==10) return clearInterval(iv);
     if(i<msgs.length) $("#lm").textContent=msgs[i]; else { clearInterval(iv); go(11); } },1300);
 },
@@ -766,9 +843,10 @@ b=>{
 // 11 · Real ending + receipt of suffering
 b=>{
   const t=Math.floor((Date.now()-S.start)/1000);
-  confetti("");
   b.innerHTML=`
-  <div class="center">${CHECK}
+  <div class="shredtop"><div class="mcard"><div class="l">GAINTRAIN</div><div class="t">PLATINUM MEMBER</div><span class="chip"></span><div class="n">#004812 · YOU</div></div></div>
+  <div class="slot"></div><div class="strips" id="strips"></div>
+  <div class="center">
   <h1 style="margin:6px 0">Membership cancelled.</h1>
   <p>Coach Chad has been notified.  Here's how hard we made it:</p></div>
   <div class="statgrid">
@@ -776,16 +854,23 @@ b=>{
     <div class="stat"><b>${S.clicks}</b><span>clicks</span></div>
     <div class="stat"><b>${S.declined}</b><span>offers declined</span></div>
     <div class="stat"><b>${S.wallHits}</b><span>squat racks bumped</span></div>
-    <div class="stat"><b>${S.sliderResets}</b><span>slider resets</span></div>
+    <div class="stat"><b>${S.sliderResets}</b><span>surprise plates added</span></div>
     <div class="stat"><b>${S.idleResets}</b><span>"session expired" resets</span></div>
   </div>
   <button class="big" id="re">REJOIN (YOUR LOCKER IS STILL WARM)</button>
   <p class="center twist">* Your cancellation takes effect in <b>30 days</b>, or after your next annual maintenance fee, whichever is later. Until then, we'll keep your locker warm.</p>
   <p class="center" style="font-size:12px"><a href="#" id="again" style="color:#9ca3af">Fight the boss again</a></p>`;
+  for(let i=0;i<14;i++){ const st=document.createElement("span"); st.className="strip";
+    st.style.left=(i*16)+"px"; st.style.setProperty("--r",(Math.random()*40-20)+"deg"); st.style.animationDelay=(0.9+i*0.11)+"s";
+    $("#strips").appendChild(st); }
+  setTimeout(()=>{ if(S.step===11&&soundOn) try{ actx=actx||new (window.AudioContext||window.webkitAudioContext)();
+    const len=actx.sampleRate*1.6, buf=actx.createBuffer(1,len,actx.sampleRate), d=buf.getChannelData(0);
+    for(let i=0;i<len;i++) d[i]=(Math.random()*2-1)*0.18*(Math.sin(i/len*Math.PI));
+    const src=actx.createBufferSource(); src.buffer=buf; src.connect(actx.destination); src.start(); }catch(e){} },900);
   const wk=document.createElement("div"); wk.className="walker";
-  wk.innerHTML=`<div class="bob">${catSVG("sad",52)}</div><span class="case"></span>`;
+  wk.innerHTML=`<div class="bob">${catSVG("sad",60)}</div><img src="${EMO("1f44b")}" width="44" height="44" alt="">`;
   $("#c").appendChild(wk);
-  setTimeout(()=>{ if(S.step===11){ toast("Coach Chad is now training your neighbor."); speak("Goodbye, champ."); } },2500);
+  setTimeout(()=>{ if(S.step===11){ toast("Coach Chad is now training your neighbor."); confetti(); } },2500);
   $("#re").onclick=()=>toast("Not after all that. Go touch grass.");
   $("#again").onclick=e=>{e.preventDefault();reset();go(0);};
 }
@@ -802,15 +887,14 @@ go(0);
     <div class="in-title" data-t="THE CANCEL SCREEN">THE CANCEL SCREEN</div>
     <div class="in-hp"><i></i></div>
     <div class="in-tag">Level 99 Membership Retention Coach. Nobody has ever cancelled.</div>
-    ${catSVG("watch",90)}
+    <div style="display:flex;justify-content:center;margin-top:6px">${devilHTML()}</div>
     <button id="startbtn">PRESS START</button>
-    <div class="in-hint">sound on · press J for judge mode</div></div>`;
+    <div class="in-hint">turn your sound on · press J for judge mode</div></div>`;
   document.body.appendChild(ov);
   $("#startbtn").onclick=()=>{
     introDone=true; ov.classList.add("out"); setTimeout(()=>ov.remove(),650);
     reset(); go(0);
     if(soundOn) dunDun();
-    speak("Welcome back, champ. We missed you.");
   };
 })();
 </script>
