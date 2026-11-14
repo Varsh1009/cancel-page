@@ -83,7 +83,7 @@ input[type=range]{width:100%;accent-color:var(--pink)}
 .spin{width:54px;height:54px;border:6px solid #e5e7eb;border-top-color:var(--pink);border-radius:50%;margin:60px auto 20px;animation:s 0.8s linear infinite}
 @keyframes s{to{transform:rotate(360deg)}}
 .center{text-align:center}
-.statgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px;margin:16px 0}
+.statgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:16px 0}
 .stat{background:#fff;border:1px solid var(--faint);padding:12px;text-align:center}
 .stat b{display:block;font-size:24px;color:var(--pink)}
 .stat span{font-size:11px;color:#6b7280}
@@ -157,6 +157,51 @@ select,input[type=text]{background:#0b0b0d;color:#f4f4f5;border-color:#27272a}
 @keyframes hb{0%,100%{box-shadow:inset 0 0 120px rgba(255,0,30,var(--a,0))}12%{box-shadow:inset 0 0 160px rgba(255,0,30,calc(var(--a,0)*2))}}
 #toast{background:#0b0b0d;border-color:#ff1f3d}
 #body > p:first-of-type{margin-right:84px}
+/* ---- intro cinematic ---- */
+#intro{position:fixed;inset:0;z-index:100;background:#000;display:flex;align-items:center;justify-content:center;padding:16px;text-align:center;transition:opacity .6s}
+#intro.out{opacity:0;pointer-events:none}
+.in-sub{font:12px ui-monospace,monospace;letter-spacing:.2em;color:#52525b}
+.in-enc{font:700 14px ui-monospace,monospace;letter-spacing:.35em;color:#ff1f3d;margin:18px 0 6px;animation:blinkt 1s steps(2) infinite}
+@keyframes blinkt{50%{opacity:.2}}
+.in-title{position:relative;display:inline-block;font:900 clamp(30px,8vw,64px)/1 ui-monospace,Menlo,monospace;color:#fff;letter-spacing:.04em;text-shadow:0 0 24px #ff1f3d}
+.in-title::before,.in-title::after{content:attr(data-t);position:absolute;inset:0;overflow:hidden}
+.in-title::before{color:#ff1f3d;animation:gl1 2.2s infinite steps(1);clip-path:inset(0 0 60% 0)}
+.in-title::after{color:#29d3ff;animation:gl2 1.7s infinite steps(1);clip-path:inset(55% 0 0 0)}
+@keyframes gl1{0%,90%,100%{transform:none}92%{transform:translate(-6px,-2px)}96%{transform:translate(5px,1px)}}
+@keyframes gl2{0%,85%,100%{transform:none}88%{transform:translate(6px,2px)}94%{transform:translate(-4px,0)}}
+.in-hp{width:min(340px,80vw);height:14px;border:2px solid #ff1f3d;margin:22px auto 10px;padding:2px}
+.in-hp i{display:block;height:100%;width:0;background:#ff1f3d;box-shadow:0 0 12px #ff1f3d;animation:fillhp 2s .4s cubic-bezier(.2,.8,.2,1) forwards}
+@keyframes fillhp{to{width:100%}}
+.in-tag{color:#a1a1aa;font-size:14px;margin:6px 0 18px}
+#startbtn{background:none;border:2px solid #fff;color:#fff;font:700 16px ui-monospace,monospace;letter-spacing:.3em;padding:14px 28px;margin-top:18px;animation:blinkt 1.2s steps(2) infinite}
+#startbtn:hover{background:#ff1f3d;border-color:#ff1f3d;animation:none}
+.in-hint{font:11px ui-monospace,monospace;color:#3f3f46;margin-top:14px;letter-spacing:.1em}
+/* ---- lights-off flashlight on screen 1 ---- */
+.dark{position:absolute;inset:0;z-index:5;pointer-events:none;
+  background:radial-gradient(circle 120px at var(--x,-400px) var(--y,-400px),rgba(0,0,0,0) 0,rgba(0,0,0,.2) 55%,rgba(0,0,0,.97) 100%)}
+.lit{position:relative;z-index:6}
+.cat{z-index:6}
+.lightsoff{font:11px ui-monospace,monospace;color:#52525b;letter-spacing:.08em}
+/* ---- Mittens texts you ---- */
+.notif{position:fixed;top:16px;right:16px;z-index:80;width:min(300px,calc(100vw - 32px));background:rgba(24,24,27,.96);border:1px solid #3f3f46;border-radius:14px;
+  padding:10px 12px;display:flex;gap:10px;align-items:center;box-shadow:0 10px 30px rgba(0,0,0,.6);cursor:pointer;animation:nin .4s cubic-bezier(.2,1.4,.4,1)}
+.notif.out{animation:nout .35s forwards}
+@keyframes nin{from{transform:translateY(-130%)}}
+@keyframes nout{to{transform:translateY(-140%);opacity:0}}
+.notif .nb{font-size:13px;color:#e4e4e7;line-height:1.3}
+.notif .nb b{display:flex;justify-content:space-between;font-size:12px;color:#fff;margin-bottom:2px}
+.notif .nb b span{color:#71717a;font-weight:400}
+.notif .av{flex:none;width:38px;height:38px;border-radius:50%;background:#000;border:1px solid #ff1f3d;display:flex;align-items:center;justify-content:center;overflow:hidden}
+#snd{background:none;border:1px solid #ff1f3d;color:#ff1f3d;font:11px ui-monospace,monospace;letter-spacing:.1em;padding:4px 8px}
+/* ---- ending: Mittens leaves ---- */
+.twist{font-size:12px;color:#71717a;margin-top:10px}
+.twist b{color:#ff1f3d}
+.walker{position:absolute;bottom:20px;left:-90px;display:flex;align-items:flex-end;gap:2px;animation:walk 9s 1.2s linear forwards;z-index:4}
+.walker .bob{animation:bob .35s infinite alternate}
+@keyframes walk{to{left:105%}}
+@keyframes bob{to{transform:translateY(-4px)}}
+.case{width:26px;height:20px;background:#7f1d1d;border:2px solid #ff1f3d;border-radius:3px;position:relative;margin-bottom:4px}
+.case::before{content:"";position:absolute;top:-7px;left:7px;width:8px;height:5px;border:2px solid #ff1f3d;border-bottom:0}
 .hidden-exit{color:#3a3a42;cursor:pointer}
 .hidden-exit:hover{color:#71717a}
 /* animated SVG characters */
@@ -197,7 +242,8 @@ select,input[type=text]{background:#0b0b0d;color:#f4f4f5;border-color:#27272a}
 <div class="hud">
   <div class="boss">BOSS · THE CANCEL SCREEN</div>
   <div class="hp" id="hp"><span>HP</span></div>
-  <div class="stats" id="stats"> 0:00 ·  0</div>
+  <div class="stats" id="stats">TIME 0:00 · CLICKS 0</div>
+  <button id="snd" aria-label="toggle sound">SOUND: ON</button>
 </div>
 <div class="win" id="win">
   <div class="bar"><span class="dot" style="background:#ef4444"></span><span class="dot" style="background:#f59e0b"></span><span class="dot" style="background:#22c55e"></span>
@@ -284,9 +330,9 @@ function shake(){ const w=$("#win"); w.classList.remove("shake"); void w.offsetW
 // ----- animated SVG characters -----
 function catSVG(mood="watch",size=56){
   const mouth={watch:"M40 67 Q50 71 60 67",shock:"M45 69 a5 6 0 1 0 10 0 a5 6 0 1 0 -10 0",sad:"M39 72 Q50 62 61 72",happy:"M39 65 Q50 76 61 65"}[mood];
-  const eyes= mood==="shock"? `<circle cx="38" cy="49" r="8" class="eye"/><circle cx="62" cy="49" r="8" class="eye"/>`
+  const eyes= mood==="shock"? `<g class="track"><circle cx="38" cy="49" r="8" class="eye"/><circle cx="62" cy="49" r="8" class="eye"/></g>`
     : mood==="happy"? `<path d="M31 51 Q38 43 45 51" class="lid"/><path d="M55 51 Q62 43 69 51" class="lid"/>`
-    : `<g class="blink"><ellipse cx="38" cy="50" rx="5" ry="6.5" class="eye"/><ellipse cx="62" cy="50" rx="5" ry="6.5" class="eye"/></g>`;
+    : `<g class="track"><g class="blink"><ellipse cx="38" cy="50" rx="5" ry="6.5" class="eye"/><ellipse cx="62" cy="50" rx="5" ry="6.5" class="eye"/></g></g>`;
   const tears= mood==="sad"? `<circle cx="37" cy="58" r="2.6" class="tear"/><circle cx="63" cy="58" r="2.6" class="tear t2"/>` : "";
   return `<svg class="catsvg ${mood}" width="${size}" height="${size}" viewBox="0 0 100 100" aria-hidden="true">
     <path class="head" d="M20 42 L24 12 L42 29 Q50 27 58 29 L76 12 L80 42 Q87 62 76 77 Q64 89 50 89 Q36 89 24 77 Q13 62 20 42Z"/>
@@ -350,15 +396,55 @@ function dunDun(){
       o.connect(g).connect(actx.destination); o.start(actx.currentTime+t); o.stop(actx.currentTime+t+0.4); });
   }catch(e){}
 }
+// ----- sound + whispering voice -----
+let soundOn=true, lastSpeak=0;
+$("#snd").onclick=()=>{ soundOn=!soundOn; $("#snd").textContent="SOUND: "+(soundOn?"ON":"OFF"); if(!soundOn&&window.speechSynthesis) speechSynthesis.cancel(); };
+function speak(t){
+  if(!soundOn||!window.speechSynthesis||Date.now()-lastSpeak<3500) return; lastSpeak=Date.now();
+  try{ const u=new SpeechSynthesisUtterance(t); u.pitch=0.1; u.rate=0.78; u.volume=0.9;
+    const v=speechSynthesis.getVoices().find(v=>/Whisper|Daniel|Fred|Google UK English Male/i.test(v.name)); if(v) u.voice=v;
+    speechSynthesis.cancel(); speechSynthesis.speak(u); }catch(e){}
+}
+// ----- screen 1 headline rewrites itself every time you go for the exit -----
+const headlines=["Wait! Are you sure you're sure?","Are you SURE sure?","After everything?","We were there at 3 AM.","Mittens is watching you do this.","Fine. Click it. See what happens."];
+let hi=0;
+function rewriteHeadline(){ const h=document.querySelector("#body h1"); if(!h) return; hi=(hi+1)%headlines.length; h.textContent=headlines[hi];
+  h.classList.remove("glitch"); void h.offsetWidth; h.classList.add("glitch"); }
+// ----- Mittens' eyes follow your cursor -----
+document.addEventListener("pointermove",e=>{
+  document.querySelectorAll(".catsvg .track").forEach(g=>{
+    const r=g.ownerSVGElement.getBoundingClientRect(); const dx=e.clientX-(r.left+r.width/2), dy=e.clientY-(r.top+r.height/2);
+    const len=Math.hypot(dx,dy)||1, k=Math.min(1,len/160)*4;
+    g.setAttribute("transform",`translate(${(dx/len*k).toFixed(2)} ${(dy/len*k).toFixed(2)})`);
+  });
+});
+// ----- Mittens texts you -----
+const texts=["hey","where r u going","i saw u hover the cancel button","i'm not crying. ur crying","who's going to pay for my cat videos","remember 3 AM? i do","fine. FINE.","(Mittens left you on read)"];
+let txi=0, introDone=false;
+setInterval(()=>{
+  if(!introDone||S.step<1||S.step>9) return;
+  document.querySelectorAll(".notif").forEach(n=>n.remove());
+  const n=document.createElement("div"); n.className="notif";
+  n.innerHTML=`<div class="av">${catSVG("sad",34)}</div><div class="nb"><b>Mittens <span>now</span></b>${texts[txi++%texts.length]}</div>`;
+  n.onclick=()=>{ n.remove(); toast("Mittens doesn't want to talk about it."); };
+  document.body.appendChild(n);
+  if(soundOn) try{ actx=actx||new (window.AudioContext||window.webkitAudioContext)(); const o=actx.createOscillator(),g=actx.createGain();
+    o.frequency.value=1320; g.gain.setValueAtTime(0.05,actx.currentTime); g.gain.exponentialRampToValueAtTime(0.0001,actx.currentTime+0.25);
+    o.connect(g).connect(actx.destination); o.start(); o.stop(actx.currentTime+0.26);}catch(e){}
+  setTimeout(()=>{ n.classList.add("out"); setTimeout(()=>n.remove(),400); },4200);
+},15000);
+
 function evil(x,y){
   const now=Date.now(); if(now-lastEvil<1200) return; lastEvil=now;
   const d=document.createElement("div"); d.className="devil"; d.innerHTML=DEVIL;
   d.style.left=x+"px"; d.style.top=y+"px"; document.body.appendChild(d); setTimeout(()=>d.remove(),1200);
   vig.classList.add("hit"); setTimeout(()=>vig.classList.remove("hit"),350);
   const w=document.createElement("div"); w.className="whisper"; w.textContent=guilt[Math.floor(Math.random()*guilt.length)];
+  speak(w.textContent);
+  if(S.step===0) rewriteHeadline();
   document.querySelectorAll(".whisper").forEach(o=>o.remove()); document.body.appendChild(w); setTimeout(()=>w.remove(),2300);
   const cat=document.querySelector(".cat"); if(cat) cat.innerHTML=`<div>${catSVG("shock",56)}</div><b style="color:#ff1f3d">MITTENS SAW THAT</b>`;
-  dunDun();
+  if(soundOn) dunDun();
 }
 const EVIL_IDS=new Set(["exit","save","retry","run","sure","ok","go","cont","sl"]);
 document.addEventListener("pointerover",e=>{
@@ -374,6 +460,7 @@ window.addEventListener("beforeunload",e=>{ if(S.step>0&&S.step<11){ e.preventDe
 function go(n){
   S.step=n;
   document.querySelectorAll(".ov,.ad").forEach(o=>o.remove());
+  $("#c").onpointermove=null; $("#c").onpointerleave=null;
   tilt();
   pulse.style.setProperty("--a", n>=11? 0 : (0.05+n*0.03).toFixed(2)); // heartbeat gets stronger each step
   $("#url").textContent=`account.megastream.example/cancel?step=${fakeShown[n]}of${fakeTotal[n]}`;
@@ -393,16 +480,21 @@ const steps = [
 // 0 · Confirmshaming + disguised button + sneaky pre-check + fake urgency + double negative + hidden exit
 b=>{
   b.innerHTML=`
-  <h1>Wait! Are you sure you're sure?</h1>
-  <p>Cancelling means losing 47 benefits you have never used. Your playlists will be shredded. Your cat will be notified.
+  <h1 class="lit">${headlines[hi]}</h1>
+  <p class="lit">Cancelling means losing 47 benefits you have never used. Your playlists will be shredded. Your cat will be notified.
   We've been together for <b style="color:#fff">1,412 days</b>. We were there at 3 AM. Every. Single. Night.</p>
-  <button class="big" id="keep">KEEP MY MEMBERSHIP (RECOMMENDED)</button>
+  <button class="big lit" id="keep">KEEP MY MEMBERSHIP (RECOMMENDED)</button>
+  <div class="lightsoff lit">The lights are off to save energy for our loyal members. The exit is in here somewhere.</div>
   <label class="chk"><input type="checkbox" id="plat" checked> Also upgrade me to the 3-year Platinum plan ($899)</label>
   <div class="urgent">Offer expires in <span class="timer">00:04:59</span></div>
   <button class="grey" id="dnk">Don't not keep my subscription</button>
   <a class="hidden-exit" id="exit" href="#">no, I prefer to lose everything</a>`;
   $("#keep").onclick=()=>{ confetti(); modal(`<h3> Great choice!</h3><p>Your membership is safe. We've also restarted your cancellation, just in case.</p>`,[{label:"Yay!",cls:"blue"}]); };
   $("#dnk").onclick=()=>{ shake(); toast("Got it. You don't NOT want to keep it, so it's kept! "); };
+  // lights off: a flashlight follows the cursor; only KEEP and the guilt text are lit
+  const c=$("#c"), dark=document.createElement("div"); dark.className="dark"; c.appendChild(dark);
+  c.onpointermove=e=>{ const r=c.getBoundingClientRect(); dark.style.setProperty("--x",(e.clientX-r.left)+"px"); dark.style.setProperty("--y",(e.clientY-r.top)+"px"); };
+  c.onpointerleave=()=>{ dark.style.setProperty("--x","-400px"); dark.style.setProperty("--y","-400px"); };
   // the KEEP button grows whenever you go near the exit
   const keep=$("#keep"); keep.classList.add("grow"); let g=1;
   $("#exit").addEventListener("pointerenter",()=>{ g=Math.min(g+0.12,1.6); keep.style.transform=`scale(${g})`; });
@@ -684,13 +776,39 @@ b=>{
     <div class="stat"><b>${S.idleResets}</b><span>"session expired" resets</span></div>
   </div>
   <button class="big" id="re">RESUBSCRIBE (WE SAVED YOUR SPOT)</button>
+  <p class="center twist">* Your cancellation takes effect in <b>30 days</b>. Until then, MegaStream will continue to miss you, bill you, and leave the porch light on.</p>
   <p class="center" style="font-size:12px"><a href="#" id="again" style="color:#9ca3af">Fight the boss again</a></p>`;
-  $("#re").onclick=()=>toast("lol. Not after all that. Go touch grass ");
+  const wk=document.createElement("div"); wk.className="walker";
+  wk.innerHTML=`<div class="bob">${catSVG("sad",52)}</div><span class="case"></span>`;
+  $("#c").appendChild(wk);
+  setTimeout(()=>{ if(S.step===11){ toast("Mittens is moving in with your neighbor."); speak("Goodbye."); } },2500);
+  $("#re").onclick=()=>toast("Not after all that. Go touch grass.");
   $("#again").onclick=e=>{e.preventDefault();reset();go(0);};
 }
 ];
 
 go(0);
+
+// ---------- boss intro cinematic ----------
+(function intro(){
+  const ov=document.createElement("div"); ov.id="intro";
+  ov.innerHTML=`<div>
+    <div class="in-sub">&gt; MEGASTREAM ACCOUNT SERVICES</div>
+    <div class="in-enc">! BOSS ENCOUNTER !</div>
+    <div class="in-title" data-t="THE CANCEL SCREEN">THE CANCEL SCREEN</div>
+    <div class="in-hp"><i></i></div>
+    <div class="in-tag">Level 99 Retention Specialist. It has never been defeated.</div>
+    ${catSVG("watch",90)}
+    <button id="startbtn">PRESS START</button>
+    <div class="in-hint">sound on · press J for judge mode</div></div>`;
+  document.body.appendChild(ov);
+  $("#startbtn").onclick=()=>{
+    introDone=true; ov.classList.add("out"); setTimeout(()=>ov.remove(),650);
+    reset(); go(0);
+    if(soundOn) dunDun();
+    speak("Welcome back. We missed you.");
+  };
+})();
 </script>
 </body>
 </html>
